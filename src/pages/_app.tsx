@@ -19,8 +19,8 @@ import NextApp from 'next/app';
 import 'rc-tooltip/assets/bootstrap.css';
 import React, { ErrorInfo } from 'react';
 
-import Layout from '../components/Layout';
 import withUniversalGraphQLDataLoader from '../hoc/withUniversalGraphQLDataLoader';
+import overriddenQueries from '../queries';
 import { AppInitialProps } from '../types/AppInitialProps';
 import { AppRenderProps } from '../types/AppRenderProps';
 import { Cookies } from '../types/Cookies';
@@ -29,7 +29,7 @@ import { PublicHeaders } from '../types/PublicHeaders';
 import { UserSemiPersistentSession } from '../types/UserSemiPersistentSession';
 import { prepareGraphCMSLocaleHeader } from '../utils/graphcms';
 import { LANG_EN, resolveFallbackLanguage, SUPPORTED_LANGUAGES } from '../utils/i18n'; // XXX Init Sentry
-import i18nextLocize, { fetchTranslations, I18nextResources } from '../utils/i18nextLocize';
+import { fetchTranslations, I18nextResources } from '../utils/i18nextLocize';
 import { getIframeReferrer, isRunningInIframe } from '../utils/iframe';
 import '../utils/ignoreNoisyWarningsHacks'; // HACK
 import '../utils/sentry';
@@ -169,15 +169,17 @@ class NRNApp extends NextApp {
       level: Sentry.Severity.Debug,
     });
 
-    const i18nextInstance = i18nextLocize(pageProps.lang, pageProps.defaultLocales); // Apply i18next configuration with Locize backend
+    // const i18nextInstance = i18nextLocize(pageProps.lang, pageProps.defaultLocales); // Apply i18next configuration with Locize backend
 
     // Build initial layout properties, they may be enhanced later on depending on the runtime engine
     const layoutProps: LayoutProps = {
       ...pageProps,
       err,
       router,
-      i18nextInstance,
+      // i18nextInstance,
     };
+
+    console.log('layoutProps', layoutProps);
 
     // XXX For an unknown reason, I noticed 2 render() calls. (each render call starts a new graphql request, and it makes debugging harder)
     //  The first one doesn't contain any data from the server (no data, almost nothing) and therefore result in errors along the react sub tree
@@ -192,13 +194,10 @@ class NRNApp extends NextApp {
        */
       const UniversalApp = (): JSX.Element => (
         <ApolloProvider client={apollo}>
-          <Layout
+          <Component
+            // XXX This "Component" is a dynamic Next.js page which depends on the current route
             {...layoutProps}
-          >
-            <Component
-              // XXX This "Component" is a dynamic Next.js page which depends on the current route
-            />
-          </Layout>
+          />
         </ApolloProvider>
       );
 

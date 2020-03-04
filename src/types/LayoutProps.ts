@@ -11,7 +11,7 @@ import { AppPageProps } from './AppPageProps';
  */
 export declare type LayoutProps = {
   router: NextRouter;
-  i18nextInstance: i18n;
+  // i18nextInstance: i18n;
   err?: Error; // Only defined if there was an error
 
   // Only available on the client side
