@@ -11,33 +11,17 @@ import React, { Component } from 'react';
 import { Admin, Resource } from 'react-admin';
 
 import { ProductList } from '../components/admin/ProductList';
+import Loader from '../components/Loader';
+import { GraphQLDataProvider } from '../types/GraphQLDataProvider';
 
 const fileLabel = 'pages/index';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars
   label: fileLabel,
 });
 
-// const Home: NextPage<PageProps> = (props: PageProps): JSX.Element => {
-//   const {
-//     gcmsLocales,
-//     dataProvider,
-//   }: PageProps = props;
-//
-//   console.log('dataProvider', dataProvider)
-//
-//   if (!isBrowser()) {
-//     return <Loader />;
-//   }
-//
-//   return (
-//     <Admin title="Ne" dataProvider={dataProvider}>
-//       <Resource name="Product" list={ListGuesser} />
-//     </Admin>
-//   );
-//
-// };
-
-class Home extends Component {
+class Home extends Component<{}, {
+  dataProvider: GraphQLDataProvider;
+}> {
   constructor(props) {
     super(props);
 
@@ -46,7 +30,7 @@ class Home extends Component {
     };
   }
 
-  componentDidMount() {
+  componentDidMount(): void {
     const httpLink = createHttpLink({
       uri: 'https://api-euwest.graphcms.com/v1/ck73ixhlv09yt01dv2ga1bkbp/master',
     });
@@ -69,20 +53,21 @@ class Home extends Component {
 
     buildGraphQLProvider({
       client,
-      // @ts-ignore
     }).then((dataProvider) => this.setState({ dataProvider }));
   }
 
-  render() {
-    // @ts-ignore
+  render(): JSX.Element {
     const { dataProvider } = this.state;
 
     if (!dataProvider) {
-      return <div>Loading</div>;
+      return <Loader />;
     }
 
     return (
-      <Admin title="Prisma e-commerce" dataProvider={dataProvider}>
+      <Admin
+        title="Next Right Now - Admin"
+        dataProvider={dataProvider}
+      >
         <Resource name="Product" list={ProductList} />
       </Admin>
     );
