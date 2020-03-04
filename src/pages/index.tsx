@@ -36,13 +36,13 @@ class Home extends Component<{}, {
     });
 
     const authLink = setContext((_, { headers }) => {
-      const token = process.env.GRAPHQL_API_KEY || '';
+      const token = process.env.GRAPHQL_API_KEY || null;
 
       // Return the headers to the context so httpLink can read them
       return {
         headers: {
           ...headers,
-          authorization: token ? `Bearer ${token}` : '',
+          authorization: token ? `Bearer ${token}` : null,
         },
       };
     });
