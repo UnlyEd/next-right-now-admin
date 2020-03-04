@@ -9,6 +9,7 @@ import buildGraphQLProvider from 'ra-data-opencrud';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars,no-unused-vars
 import React, { Component } from 'react';
 import { Admin, Resource } from 'react-admin';
+import { ProductEdit } from '../components/admin/ProductEdit';
 
 import { ProductList } from '../components/admin/ProductList';
 import Loader from '../components/Loader';
@@ -71,7 +72,7 @@ class Home extends Component<{}, {
         title="Next Right Now - Admin"
         dataProvider={dataProvider}
       >
-        <Resource name="Product" list={ProductList} />
+        <Resource name="Product" list={ProductList} edit={ProductEdit} />
       </Admin>
     );
   }
