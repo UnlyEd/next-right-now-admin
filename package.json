@@ -79,7 +79,7 @@
     "prop-types": "15.7.2",
     "ra-data-opencrud": "0.0.7",
     "react": "16.12.0",
-    "react-admin": "3.2.3",
+    "react-admin": "3.2.4",
     "react-dom": "16.12.0",
     "react-style-proptype": "3.2.2",
     "webfontloader": "1.6.28",
