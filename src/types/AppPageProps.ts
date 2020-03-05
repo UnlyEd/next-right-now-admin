@@ -17,5 +17,5 @@ export declare type AppPageProps = {
   lang: string;
   isSSRReadyToRender: boolean;
   dataProvider: any; // TODO type it
-  isServer: boolean;
+  isSSR: boolean;
 };

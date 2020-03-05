@@ -102,7 +102,7 @@ class NRNApp extends NextApp {
       userSession,
       lang, // i.e: 'en'
       isSSRReadyToRender: true,
-      isServer: !!req,
+      isSSR: !!req,
     };
 
     return { ...appProps };
