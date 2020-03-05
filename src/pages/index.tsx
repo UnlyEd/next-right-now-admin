@@ -30,7 +30,7 @@ const Home = (props: AppPageProps): JSX.Element => {
           <LogOnMount eventType="page-displayed" />
           <Head />
           <HydraAdmin
-            entrypoint={'process.env.GRAPHQL_API_ENDPOINT'}
+            entrypoint={process.env.GRAPHQL_API_ENDPOINT}
           />
         </>
       )}
