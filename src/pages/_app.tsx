@@ -127,6 +127,7 @@ class NRNApp extends NextApp {
       gcmsLocales, // i.e: 'EN, FR' XXX MUST BE UPPERCASED - See https://graphcms.com/docs/api/content-api/#passing-a-header-flag
       lang, // i.e: 'en'
       isSSRReadyToRender: true,
+      isServer: !!req,
     };
 
     return { ...appProps };

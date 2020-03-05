@@ -22,4 +22,5 @@ export declare type AppPageProps = {
   defaultLocales: I18nextResources;
   isSSRReadyToRender: boolean;
   dataProvider: any; // TODO type it
+  isServer: boolean;
 };
