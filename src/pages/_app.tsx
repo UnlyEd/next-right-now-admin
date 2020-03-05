@@ -20,7 +20,6 @@ import 'rc-tooltip/assets/bootstrap.css';
 import React, { ErrorInfo } from 'react';
 
 import withUniversalGraphQLDataLoader from '../hoc/withUniversalGraphQLDataLoader';
-import overriddenQueries from '../queries';
 import { AppInitialProps } from '../types/AppInitialProps';
 import { AppRenderProps } from '../types/AppRenderProps';
 import { Cookies } from '../types/Cookies';
@@ -29,7 +28,6 @@ import { PublicHeaders } from '../types/PublicHeaders';
 import { UserSemiPersistentSession } from '../types/UserSemiPersistentSession';
 import { prepareGraphCMSLocaleHeader } from '../utils/graphcms';
 import { LANG_EN, resolveFallbackLanguage, SUPPORTED_LANGUAGES } from '../utils/i18n'; // XXX Init Sentry
-import { fetchTranslations, I18nextResources } from '../utils/i18nextLocize';
 import { getIframeReferrer, isRunningInIframe } from '../utils/iframe';
 import '../utils/ignoreNoisyWarningsHacks'; // HACK
 import '../utils/sentry';
@@ -114,7 +112,6 @@ class NRNApp extends NextApp {
 
     // Calls page's `getInitialProps` and fills `appProps.pageProps` - XXX See https://nextjs.org/docs#custom-app
     const appProps: AppRenderProps = await NextApp.getInitialProps(props);
-    const defaultLocales: I18nextResources = await fetchTranslations(lang); // Pre-fetches translations from Locize API
 
     Sentry.configureScope((scope) => { // See https://www.npmjs.com/package/@sentry/node
       scope.setExtra('lang', lang);
@@ -129,7 +126,6 @@ class NRNApp extends NextApp {
       bestCountryCodes, // i.e: ['en', 'fr']
       gcmsLocales, // i.e: 'EN, FR' XXX MUST BE UPPERCASED - See https://graphcms.com/docs/api/content-api/#passing-a-header-flag
       lang, // i.e: 'en'
-      defaultLocales,
       isSSRReadyToRender: true,
     };
 
@@ -169,14 +165,11 @@ class NRNApp extends NextApp {
       level: Sentry.Severity.Debug,
     });
 
-    // const i18nextInstance = i18nextLocize(pageProps.lang, pageProps.defaultLocales); // Apply i18next configuration with Locize backend
-
     // Build initial layout properties, they may be enhanced later on depending on the runtime engine
     const layoutProps: LayoutProps = {
       ...pageProps,
       err,
       router,
-      // i18nextInstance,
     };
 
     console.log('layoutProps', layoutProps);
