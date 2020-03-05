@@ -137,7 +137,7 @@ https://nrn-admin.unly.now.sh/
 
 ## How to use
 
-
+If you're interested about using this project for yourself, see our ["How to use" Guide](./README_HOW_TO_USE.md).
 
 ---
 
