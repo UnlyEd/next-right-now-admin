@@ -58,13 +58,13 @@ Next Right Now Admin
     - Built-in **stages** (development, staging, production) workflow
     - **TypeScript** first-class support
     - **GraphQL** support (thanks to [Apollo](https://github.com/apollographql/apollo-client), and others)
-      - **GraphCMS** first-class support, which hosts our GraphQL API (server) and database, fully hosted (thanks to [GraphCMS<sup>1</sup>](https://graphcms.com/?ref=unly-nrn))
+      - **GraphCMS** first-class support, which hosts our GraphQL API (server) and database, fully hosted (thanks to [GraphCMS<sup>1</sup>](https://graphcms.com/?ref=unly-nrn-admin))
       - **GraphQL schema** available in the developer environment (thanks to [GraphQL Config](https://github.com/kamilkisiela/graphql-config))
     - **SSR** and **CSR** capabilities (thanks to the [Next.js framework](https://nextjs.org/))
     - React hooks over HOC (functional components over classes)
     - **Internationalisation** (i18n) first-class support (SSR + CSR friendly) (thanks to [react-i18next](https://react.i18next.com/))
-      - I18n of the database (thanks to [GraphCMS<sup>1</sup>](https://graphcms.com/?ref=unly-nrn))
-          - [Automated fallback language, through HTTP headers](https://graphcms.com/features/content-localization/?ref=unly-nrn)
+      - I18n of the database (thanks to [GraphCMS<sup>1</sup>](https://graphcms.com/?ref=unly-nrn-admin))
+          - [Automated fallback language, through HTTP headers](https://graphcms.com/features/content-localization/?ref=unly-nrn-admin)
       - I18n of the project (thanks to [Locize<sup>1</sup>](https://locize.com/?lng=en))
           - [Automated fallback language](https://www.i18next.com/principles/fallback)
           - [In-context editor](https://docs.locize.com/more/incontext-editor)
@@ -149,8 +149,8 @@ If you're interested about using this project for yourself, see our ["How to use
 When working on the `development` environment (localhost), the variables from [`.env.build`](.env.build) are used by [the webpack configuration](./next.config.js)
 
 When deploying an instance to the Zeit's platform, the variables used are the one that belong to that instance, such as:
-- `yarn deploy:customer1`: This script will deploy an instance using the [`now.customer1.production.json`](now.staging.json) file.
-- `yarn deploy:customer1:production`: This script will deploy an instance using the [`now.customer1.production.json`](now.production.json) file.
+- `yarn deploy`: This script will deploy in staging (AKA "Preview" on Zeit) using the [`now.staging.json`](now.staging.json) file.
+- `yarn deploy:production`: This script will deploy on production using the [`now.production.json`](now.production.json) file.
 
 > In those files, it's the `build.env` part that is used at build time (build is done on Zeit), which basically replaces all references of every environment variable by the actual value (string replace).
 
@@ -180,7 +180,7 @@ The environment affects how the application **is bundled**, it is used at **buil
 
 - When working on your local computer, you automatically use `APP_STAGE=developement`.
 - When creating a Zeit preview deployment (i.e: when pushing a commit/branch (CD), when using `yarn deploy`, etc.), you automatically use `APP_STAGE=staging`.
-- When creating a Zeit production deployment (i.e: when using `yarn deploy:customer1:production`, when merging a PR to `master`, etc.), you automatically use `APP_STAGE=production`.
+- When creating a Zeit production deployment (i.e: when using `yarn deploy:production`, when merging a PR to `master`, etc.), you automatically use `APP_STAGE=production`.
 
 The stage changes the behaviour of the application, because we sometimes need the application to behave differently depending on the stage.
 
