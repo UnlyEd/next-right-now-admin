@@ -1,4 +1,3 @@
-import { I18nextResources } from '../utils/i18nextLocize';
 import { Cookies } from './Cookies';
 import { PublicHeaders } from './PublicHeaders';
 import { UserSemiPersistentSession } from './UserSemiPersistentSession';
@@ -12,14 +11,10 @@ import { UserSemiPersistentSession } from './UserSemiPersistentSession';
  * @see _app:render - Use it (as its "pageProps" property)
  */
 export declare type AppPageProps = {
-  customerRef: string;
   headers: PublicHeaders; // Headers made public to the client-side
   readonlyCookies: Cookies; // Cookies retrieved using https://www.npmjs.com/package/next-cookies - Aren't really readonly but don't provide any setter
   userSession: UserSemiPersistentSession;
-  bestCountryCodes: string[];
-  gcmsLocales: string;
   lang: string;
-  defaultLocales: I18nextResources;
   isSSRReadyToRender: boolean;
   dataProvider: any; // TODO type it
   isServer: boolean;

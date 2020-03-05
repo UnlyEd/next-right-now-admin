@@ -156,13 +156,9 @@ Thus, **you can still use this boilerplate even if you don't like all our choice
 
 ## Showcases - Live demo
 
-You can see 2 almost identical demo at:
-- [https://nrn-customer1.now.sh](https://nrn-customer1.now.sh)
-- [https://nrn-customer2.now.sh](https://nrn-customer2.now.sh)
+TODO
 
-**Both share the same source code and configuration**, but the database content is different (hosted on GraphCMS).
-
-> **Tip**: You can get metadata at [/api/status](https://nrn-customer1.now.sh/api/status)
+> **Tip**: You can get metadata at [/api/status](/api/status)
 >
 > **Tip**: All `/api/*` are serverless functions, running under AWS Lambda
 
@@ -197,12 +193,11 @@ If you're interested about using this project for yourself, see our ["How to use
 > The application relies on environment variables to function correctly.
 > Those variables are provided differently depending on the environment.
 
-When working on the `development` environment (localhost), the variables from [`.env.build`](.env.build) are used by [the webpack configuration](./next.config.js),
-also, the [`now.json`](./now.json) configuration file is used _(it's a symlink to [`now.customer1.staging.json`](now.customer1.staging.json))_, but the variable defined in `.env.build` take precedence.
+When working on the `development` environment (localhost), the variables from [`.env.build`](.env.build) are used by [the webpack configuration](./next.config.js)
 
 When deploying an instance to the Zeit's platform, the variables used are the one that belong to that instance, such as:
-- `yarn deploy:customer1`: This script will deploy an instance using the [`now.customer1.production.json`](now.customer1.staging.json) file.
-- `yarn deploy:customer1:production`: This script will deploy an instance using the [`now.customer1.production.json`](now.customer1.production.json) file.
+- `yarn deploy:customer1`: This script will deploy an instance using the [`now.customer1.production.json`](now.staging.json) file.
+- `yarn deploy:customer1:production`: This script will deploy an instance using the [`now.customer1.production.json`](now.production.json) file.
 
 > In those files, it's the `build.env` part that is used at build time (build is done on Zeit), which basically replaces all references of every environment variable by the actual value (string replace).
 

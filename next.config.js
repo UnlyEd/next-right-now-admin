@@ -3,18 +3,15 @@ const withCSS = require('@zeit/next-css'); // Allows to import ".css" files, lik
 const packageJson = require('./package');
 const date = new Date();
 
-console.debug(`Building Next with NODE_ENV="${process.env.NODE_ENV}" APP_STAGE="${process.env.APP_STAGE}" for CUSTOMER_REF="${process.env.CUSTOMER_REF}"`);
+console.debug(`Building Next with NODE_ENV="${process.env.NODE_ENV}" APP_STAGE="${process.env.APP_STAGE}"`);
 
 module.exports = withCSS(withSourceMaps({
   env: {
     // XXX Duplication of the environment variables, this is only used locally (See https://github.com/zeit/next.js#build-time-configuration)
     //  while now.json:build:env will be used on the Now platform (See https://zeit.co/docs/v2/build-step/#providing-environment-variables)
-    CUSTOMER_REF: process.env.CUSTOMER_REF,
     APP_STAGE: process.env.APP_STAGE,
     GRAPHQL_API_ENDPOINT: process.env.GRAPHQL_API_ENDPOINT,
     GRAPHQL_API_KEY: process.env.GRAPHQL_API_KEY,
-    LOCIZE_PROJECT_ID: process.env.LOCIZE_PROJECT_ID,
-    LOCIZE_API_KEY: process.env.LOCIZE_API_KEY,
     AMPLITUDE_API_KEY: process.env.AMPLITUDE_API_KEY,
     SENTRY_DSN: process.env.SENTRY_DSN,
 
