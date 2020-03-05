@@ -2,7 +2,6 @@ import * as Sentry from '@sentry/node';
 import { isBrowser } from '@unly/utils';
 import { createLogger } from '@unly/utils-simple-logger';
 import * as React from 'react';
-import { Button } from 'reactstrap';
 
 const logger = createLogger({
   label: 'pages/error',
@@ -54,7 +53,7 @@ const ErrorDebug = (props: Props): JSX.Element => {
 
       <div>
         <p>
-          <Button
+          <button
             color={'primary'}
             onClick={(): void =>
               // @ts-ignore XXX showReportDialog is not recognised but works fine due to the webpack trick that replaces @sentry/node
@@ -62,16 +61,16 @@ const ErrorDebug = (props: Props): JSX.Element => {
             }
           >
             Send a report
-          </Button>
+          </button>
         </p>
         <p>
-          <Button
+          <button
             onClick={(): void => {
               window.location.reload(true);
             }}
           >
             Refresh the page
-          </Button>
+          </button>
         </p>
       </div>
 

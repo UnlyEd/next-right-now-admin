@@ -51,10 +51,9 @@ Most useful documentation links:
 _**staging**_ (see [`deploy-zeit-staging`](./deploy-zeit-staging.yml)):
 Every pushed commit, (except those made on `master`) automatically starts a new Zeit deployment, using the related staging configuration file.
 You can choose which client you deploy by changing the symbolic link `now.json` file.
-Changing the symlink allows to change which "CUSTOMER_REF" gets automatically deployed.
 
 _**production**_ (see [`deploy-zeit-production`](./deploy-zeit-production.yml)):
-Commits pushed to the `master` branch will automatically deploy the "CUSTOMER_REF" specified in `now.json` to Zeit, but will use it's production configuration.
+Commits pushed to the `master` branch will automatically deploy the `now-production.json` configuration.
 
 > N.B: Those events are triggered by pushed commit, but also merged branches.
 
@@ -69,7 +68,6 @@ Commits pushed to the `master` branch will automatically deploy the "CUSTOMER_RE
 * Installing Node.js and npm dependencies, by specifying Node version
 * Deploy code:
     * We checkout to the last branch commit, documentation [here](https://github.com/cypress-io/github-action)
-    * We parse current `now.json` config file to get `CUSTOMER_REF`, which corresponding to customer project to deploy, and then we run `yarn deploy:CUSTOMER_REF` or in production `yarn deploy:CUSTOMER_REF:production`
 * Run 2e2 tests:
     * We need to checkout again (because the code is not persistent)
     * We ask to Zeit api for the last deployment data, retrieve the url and then set it as environment variable as `ZEIT_DEPLOYMENT_URL` (to be able to use it afterwards)

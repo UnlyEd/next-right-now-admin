@@ -23,7 +23,6 @@ export const status = async (req: NowRequest, res: NowResponse): Promise<void> =
       stage: process.env.APP_STAGE,
       buildTime: process.env.BUILD_TIME,
       buildTimestamp: process.env.BUILD_TIMESTAMP,
-      customer: process.env.CUSTOMER_REF,
     });
   } catch (e) {
     logger.error(e.message);

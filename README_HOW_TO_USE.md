@@ -66,8 +66,6 @@ How to use
 >
 > **Tip**: You can start the project in **debug mode** (built-in for WebStorm only) [by running the WebStorm "Debug" configuration in debug mode](https://youtu.be/3vbkiRAT4e8)
 >
-> **Tip**: You can change **which customer is started by default** by changing the [`./now.json`](./now.json) symlink (ie: `ln -s ./now.customer2.staging.json ./now.json`)
->
 > **Tip**: If there are tools that you don't need/like, read our [guide about how to remove them](README_HOW_TO_REMOVE.md).
 
 ---
@@ -293,17 +291,13 @@ By default, there is one custom domain per Git Branch, but also one per commit.
 It is also possible to create a custom domain manually from the CLI, for any deployment.
 
 - `yarn deploy` - Deploy the customer1 app (shortcut)
-- `yarn deploy:customer1` - Deploy the customer1 app
-- `yarn deploy:customer2` - Deploy the customer2 app
 - `yarn deploy:all` - Deploy all apps
 
 #### Production deployment
 
 While there can be multiple staging deployments, **there is only one production deployment (per project)**
 
-- `yarn deploy:customer1:production` - Deploy the customer1 app to [https://zeit.co/unly/nrn-customer1](https://zeit.co/unly/nrn-customer1)
-- `yarn deploy:customer2:production` - Deploy the customer2 app to [https://zeit.co/unly/nrn-customer2](https://zeit.co/unly/nrn-customer2)
-- `yarn deploy:all:production` - Deploy all apps
+- `yarn deploy:production` - Deploy the app to production
 
 > N.B: Those commands use the `now` command with the `--prod` argument behind the wheel.
 > N.B: Those commands are used by our CI server.
@@ -330,7 +324,7 @@ Zeit native Github integration will do just fine for that simpler use-case! :)
 >
 > This documentation is in-case-of you'd need to configure it through the CLI
 
-1. Configuring [Zeit Secrets](https://zeit.co/docs/v2/serverless-functions/env-and-secrets?query=secre#adding-secrets), open [`now.customer1.staging.json`](./now.customer1.staging.json)
+1. Configuring [Zeit Secrets](https://zeit.co/docs/v2/serverless-functions/env-and-secrets?query=secre#adding-secrets), open [`now.customer1.staging.json`](now.staging.json)
     - Each secret must be added manually, one by one
     - A secret starts with `@`
     - Secrets are global to the whole team, that's why they're all prefixed by `nrn-`, so that they don't conflict with other projects _(Zeit is working on this, to avoid leaking secrets from one project to another, but hasn't released anything yet)_
