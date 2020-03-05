@@ -9,28 +9,18 @@ describe('Index page', () => {
   });
 
   /**
-   * Footer section
+   * Navbar section
    */
-  it('should have the Unly logo in the footer', () => {
-    cy.get('#footer-logo-unly-brand').should('have.length', 1);
-  });
-
-  it('should have the customer logo in the footer', () => {
-    cy.get('#footer-logo-organisation-brand').should('have.length', 1);
+  it('should have a navigation bar', () => {
+    cy.get('header.MuiAppBar-root').should('have.length', 1);
+    cy.get('header.MuiAppBar-root button[title="Refresh"]').should('have.length', 1);
+    cy.get('header.MuiAppBar-root button[title="Profile"]').should('have.length', 1);
   });
 
   /**
-   * Navbar section
+   * Main default section
    */
-  it('should have 3 links in the navigation bar', () => {
-    cy.get('#nav a.nav-link').should('have.length', 3);
-  });
-
-  it('should have a link in the navbar that redirects to the examples page', () => {
-    cy.url().should('eq', `${baseUrl}/`);
-    cy.get('#nav-link-examples')
-      .should('have.text', 'Examples')
-      .click();
-    cy.url().should('eq', `${baseUrl}/examples`);
+  it('should have a list view', () => {
+    cy.get('main .list-page').should('have.length', 1);
   });
 });
