@@ -1,4 +1,5 @@
 /** @jsx jsx */
+import { Amplitude, LogOnMount } from '@amplitude/react-amplitude';
 import { jsx } from '@emotion/core';
 import { createLogger } from '@unly/utils-simple-logger';
 import { InMemoryCache } from 'apollo-cache-inmemory';
@@ -9,11 +10,12 @@ import buildGraphQLProvider from 'ra-data-opencrud';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars,no-unused-vars
 import React, { Component } from 'react';
 import { Admin, Resource } from 'react-admin';
-import { ProductEdit } from '../components/admin/ProductEdit';
 
+import { ProductEdit } from '../components/admin/ProductEdit';
 import { ProductList } from '../components/admin/ProductList';
 import Loader from '../components/Loader';
 import { GraphQLDataProvider } from '../types/GraphQLDataProvider';
+import Head from '../components/Head';
 
 const fileLabel = 'pages/index';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars
@@ -68,12 +70,28 @@ class Home extends Component<{}, {
     }
 
     return (
-      <Admin
-        title="Next Right Now - Admin"
-        dataProvider={dataProvider}
+      <Amplitude
+        eventProperties={(inheritedProps): object => ({
+          ...inheritedProps,
+          page: {
+            ...inheritedProps.page,
+            name: 'index',
+          },
+        })}
       >
-        <Resource name="Product" list={ProductList} edit={ProductEdit} />
-      </Admin>
+        {({ logEvent }): JSX.Element => (
+          <>
+            <LogOnMount eventType="page-displayed" />
+            <Head />
+            <Admin
+              title="Next Right Now - Admin"
+              dataProvider={dataProvider}
+            >
+              <Resource name="Product" list={ProductList} edit={ProductEdit} />
+            </Admin>
+          </>
+        )}
+      </Amplitude>
     );
   }
 }
