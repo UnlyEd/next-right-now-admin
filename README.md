@@ -97,7 +97,9 @@ Next Right Now Admin
 
 - [Getting started](#getting-started)
   * [Showcases - Live demo](#showcases---live-demo)
-  * [How to use](#how-to-use)
+  * [Super quick local installation (for local-only testing purpose, without Zeit account)](#super-quick-local-installation-for-local-only-testing-purpose-without-zeit-account)
+  * [Online installation (on Zeit)](#online-installation-on-zeit)
+    + [Zeit advanced configuration guide](#zeit-advanced-configuration-guide)
 - [Understanding `Environments` and `Stages`](#understanding-environments-and-stages)
   * [What is an `environment`?](#what-is-an-environment)
   * [What is a `stage`?](#what-is-a-stage)
@@ -135,9 +137,42 @@ https://nrn-admin.unly.now.sh/
 >
 > **Tip**: All `/api/*` are serverless functions, running under AWS Lambda
 
-## How to use
+## Super quick local installation (for local-only testing purpose, without Zeit account)
 
-If you're interested about using this project for yourself, see our ["How to use" Guide](./README_HOW_TO_USE.md).
+> This assumes you've **cloned** the project on your own computer.
+>
+> Follow this guide **if you just want to try it out** on your local machine
+>
+> **Tip**: Using now@17+ is required for CI to work properly, but you don't care about that if you just want to get started quickly.
+
+- Duplicate the [`.env.build.example`](./.env.build.example) and rename it `.env.build` _(this file is only used on your local computer)_
+- `nvm use` - (Optional) Selects the right node.js version based on our [`.nvmrc`](./.nvmrc) file
+- `yarn add -D now@16.7.3`, now@17+ requires to be authenticated to Zeit in order to launch the project, even if only working locally, so you can use now@16 instead to avoid creating a Zeit account
+- `yarn` - Installs all deps from [`package.json`](./package.json)
+- (Optional) Customise `GRAPHQL_API_ENDPOINT` and `GRAPHQL_API_KEY` to use your own. You can also use the default ones (readonly)
+- (Optional) Customise `AMPLITUDE_API_KEY` and `SENTRY_DSN` to use your own. You can also leave them empty
+- `yarn start` - Starts the app on [http://localhost:8888/](http://localhost:8888/)
+- That's it! The project now runs on your local computer
+    - **Tip**: It'll still be using the demo GraphCMS/GraphQL endpoint if you haven't changed `GRAPHQL_API_ENDPOINT`
+    - **Tip**: The default GraphCMS token is readonly, mutations (add, update, delete operations) will fail
+
+> **Tip**: You can start the project in **debug mode** (built-in for WebStorm only) [by running the WebStorm "Debug" configuration in debug mode](https://youtu.be/3vbkiRAT4e8)
+>
+> **Tip**: If there are tools that you don't need/like, read our [guide about how to remove them](README_HOW_TO_REMOVE.md).
+
+---
+
+## Online installation (on Zeit)
+
+If you want to deploy your local project online, run `yarn deploy:production`.
+
+You will likely need to run `now` first, to authenticate and such. Also, you need to define the secrets (see [Zeit advanced configuration guide](#zeit-advanced-configuration-guide)).
+
+### Zeit advanced configuration guide
+
+See https://github.com/UnlyEd/next-right-now/blob/master/README_HOW_TO_USE.md#online-installation-on-zeit
+
+Steps are similar. This NRN-Admin doesn't use Locize though, so you can skip it.
 
 ---
 
