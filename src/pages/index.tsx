@@ -1,5 +1,5 @@
 import { Amplitude, LogOnMount } from '@amplitude/react-amplitude';
-import { HydraAdmin } from '@api-platform/admin';
+import { isBrowser } from '@unly/utils';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars,no-unused-vars
 import React from 'react';
 
@@ -8,11 +8,12 @@ import Loader from '../components/Loader';
 import { AppPageProps } from '../types/AppPageProps';
 
 const Home = (props: AppPageProps): JSX.Element => {
-  const { isServer } = props;
-
-  if (!isServer) {
+  if (!isBrowser()) {
     return <Loader />;
   }
+
+  // XXX Not compatible with SSR, must be imported on the client only
+  const { HydraAdmin } = require('@api-platform/admin');
 
   return (
     <Amplitude
@@ -28,8 +29,9 @@ const Home = (props: AppPageProps): JSX.Element => {
         <>
           <LogOnMount eventType="page-displayed" />
           <Head />
-          <HydraAdmin entrypoint={'https://demo.api-platform.com'} />
-          {/*<HydraAdmin entrypoint={process.env.GRAPHQL_API_ENDPOINT} />*/}
+          <HydraAdmin
+            entrypoint={'process.env.GRAPHQL_API_ENDPOINT'}
+          />
         </>
       )}
     </Amplitude>
