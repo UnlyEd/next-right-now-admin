@@ -12,15 +12,10 @@ Dependencies
     + [A note about Amplitude's pricing](#a-note-about-amplitudes-pricing)
   * [Emotion](#emotion)
     + [Note about `/** @jsx jsx */`](#note-about--jsx-jsx-)
-  * [FortAwesome/FontAwesome](#fortawesomefontawesome)
-    + [Note about FontAwesome usage](#note-about-fontawesome-usage)
   * [Sentry](#sentry)
     + [A note about Sentry usage](#a-note-about-sentry-usage)
   * [Unly packages](#unly-packages)
   * [Apollo with react](#apollo-with-react)
-  * [Bootstrap](#bootstrap)
-    + [Notes about Bootstrap/Reactstrap usage](#notes-about-bootstrapreactstrap-usage)
-      - [Notes about Reactstrap Tooltips and Modal (SSR-not-friendly)](#notes-about-reactstrap-tooltips-and-modal-ssr-not-friendly)
   * [classnames](#classnames)
   * [Cookies](#cookies)
     + [Why not using `universal-cookie`?](#why-not-using-universal-cookie)
@@ -29,16 +24,11 @@ Dependencies
   * [deepmerge](#deepmerge)
   * [GraphQL](#graphql)
   * [I18n, i18next and Locize](#i18n-i18next-and-locize)
-    + [Language detection](#language-detection)
-    + [Translation](#translation)
-  * [isomorphic-unfetch](#isomorphic-unfetch)
   * [json-stringify-safe](#json-stringify-safe)
   * [Lodash](#lodash)
     + [Note about Lodash TS typings](#note-about-lodash-ts-typings)
   * [Next](#next)
-  * [rc-tooltip](#rc-tooltip)
   * [React](#react)
-  * [recompose](#recompose)
   * [webfontloader](#webfontloader)
   * [winston](#winston)
 - [Dev dependencies](#dev-dependencies)
@@ -121,44 +111,6 @@ When using Emotion, the file must start with `/** @jsx jsx */` on top of it.
 
 > **TL;DR** _It basically tells the babel compiler to do something different and won't work if not specified._
 
----
-
-## FortAwesome/FontAwesome
-
-[FontAwesome](https://github.com/FortAwesome/Font-Awesome) is an awesome icon toolkit.
-
-We use the pro (paid) version, but a free version is also available.
-
-- [`@fortawesome/fontawesome-svg-core`](https://www.npmjs.com/package/@fortawesome/fontawesome-svg-core): Necessary to use font-awesome with a node project. Contains libs to config the FA library. (see `src/pages/_app.tsx`)
-- [`@fortawesome/pro-light-svg-icons`](https://www.npmjs.com/package/@fortawesome/pro-light-svg-icons): Contains the icons themselves, there is one package per free/pro and kind of icon (light, regular, solid), and specific packages per technology stack (vue, angular, react-native, etc.)
-- [`@fortawesome/react-fontawesome`](https://www.npmjs.com/package/@fortawesome/react-fontawesome): Contains the icons themselves
-
-### Note about FontAwesome usage
-
-FontAwesome is a little trickier to use that we would like to.
-
-For any icon you want to use, you must first load it through the [`src/pages/_app.tsx`](src/pages/_app.tsx) file and then load it in the FA library, as follow:
-
-```typescript jsx
-import { config, library } from '@fortawesome/fontawesome-svg-core';
-import { faGithub } from '@fortawesome/free-brands-svg-icons';
-
-library.add(faGithub);
-```
-
-> This operation is required in order to make the FA icon load properly on the server side
-
-Then, you can use those icons in any react component:
-
-```typescript jsx
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
-// Inside a react component
-<FontAwesomeIcon icon={['fab', 'github']} />
-```
-
----
-
 ## Sentry
 
 > Sentry provides open-source and hosted error monitoring that helps all software teams discover, triage, and prioritize errors in real-time.
@@ -201,46 +153,10 @@ We use some of our own packages. They are all hosted on ou [GitHub repository](h
 - [`apollo-cache-inmemory`](https://www.npmjs.com/package/apollo-cache-inmemory): apollo-cache-inmemory is the recommended cache implementation for Apollo Client 2.0. InMemoryCache is a normalized data store that supports all of Apollo Client 1.0's features without the dependency on Redux.
 - [`apollo-client`](https://www.npmjs.com/package/apollo-client): Apollo Client is a fully-featured caching GraphQL client with integrations for React, Angular, and more. It allows you to easily build UI components that fetch data via GraphQL.
 - [`apollo-link-http`](https://www.npmjs.com/package/apollo-link-http): The http link is a terminating link that fetches GraphQL results from a GraphQL endpoint over an http connection.
+- [`apollo-link-context`](https://www.npmjs.com/package/apollo-link-context): Easily set a context on your operation, which is used by other links further down the chain.
 - [`react-apollo`](https://www.npmjs.com/package/react-apollo): React Apollo allows you to fetch data from your GraphQL server and use it in building complex and reactive UIs using the React framework. React Apollo may be used in any context that React may be used. In the browser, in React Native, or in Node.js when you want to do server-side rendering.
 
-Our implementation is based on [this example](https://github.com/tomanagle/GraphQL-Apollo-Next.js) and uses the [`react hooks`](https://reactjs.org/docs/hooks-intro.html) recent feature.
-
 > It works fine with both SSR and client-side navigation.
->
-> A universal [HOC](https://reactjs.org/docs/higher-order-components.html) is used to fetch data from our GraphQL endpoint: [withUniversalGraphQLDataLoader](src/hoc/withUniversalGraphQLDataLoader.ts). (both from browser and SSR)
->
-> We don't use any authentication, as we connect to our GraphCMS Cache instance, which doesn't require any.
->
-> We provide some headers on-the-fly (for I18n), that are added per-query basis.
-
----
-
-## [Bootstrap](https://getbootstrap.com/) & [Reactstrap](https://reactstrap.github.io/)
-
-> We use Reactstrap as a Components library, which is itself based on Bootstrap.
-
-- [`bootstrap`](https://www.npmjs.com/package/bootstrap): Necessary to load bootstrap.css file, which provides the styles
-- [`reactstrap`](https://www.npmjs.com/package/reactstrap):
-- [`@zeit/next-css`](https://github.com/zeit/next-plugins/tree/master/packages/next-css): [Additional Next configuration](https://stackoverflow.com/a/50002905/2391795) necessary to gain the ability to `import` `.css` files.
-
-### Notes about Bootstrap/Reactstrap usage
-
-> We are not quite satisfied with Reactstrap, to be honest. But we haven't found a better alternative so far (mostly because we're used to bootstrap, and lack of time for R&D).
->
-> It does the job, but we dislike it more and more.
-
-Alternatives to Bootstrap/Reactstrap may be:
-- [https://bulma.io/](https://bulma.io/) - 38k github stars
-- [https://github.com/tailwindcss/tailwindcss](https://github.com/tailwindcss/tailwindcss) - 20k github stars
-
-Both look like promising CSS frameworks, there is likely more of them out there, but that's our top 2 in early 2020.
-
-#### Notes about Reactstrap Tooltips and Modal (SSR-not-friendly)
-
-We strongly suggest using another lib for Tooltips such as `rc-tooltip`.
-
-**Known issues**:
-- [Using `Modal` or `Tooltip` with `isOpen={true}`](https://github.com/reactstrap/reactstrap/issues/1071) crashes the application completely, because SSR compilation fails due to missing `document`.
 
 ---
 
@@ -324,42 +240,7 @@ To refresh the GraphQL spec, just run the `.graphqlconfig` file by opening it an
 
 ## I18n, i18next and Locize
 
-### Language detection
-We rely on a few packages for I18n:
-- [`accept-language-parser`](https://www.npmjs.com/package/accept-language-parser): Parses the accept-language header from an HTTP request and produces an array of language objects sorted by quality.
-
-Together, those packages are used in [i18n.ts](src/utils/i18n.ts) and are used to resolve the languages/codes used/preferred by the end user.
-We do it manually instead of relying on another lib that would detect the language for us, because we need to be consistent with the language displayed to the end user, and need to provide the exact same value to GraphCMS and Locize.
-
-### Translation
-We also rely on those packages to manage the translations:
-- [`i18next-locize-backend`](https://www.npmjs.com/package/i18next-locize-backend): This is an i18next backend to be used for locize service. It will load resources from locize server using xhr.
-    It will allow you to save missing keys containing both default value and context information
-    **This backend is used when using the browser.**
-- [`i18next-node-locize-backend`](https://www.npmjs.com/package/i18next-node-locize-backend): This is a i18next backend to be used with node.js for the locize service. It's for the node.js server what the i18next-locize-backend is for the browser.
-    **This backend is used when using node (server).**
-- [`locize-editor`](https://www.npmjs.com/package/locize-editor): The locize-editor enables you to directly connect content from your website / application with your content on your localization project on locize.
-    Enabling the editor by querystring ?locize=true you can click any text content on your website to open it on the right side editor window
-    **This plugin is used when using the browser.**
-- [`locize-node-lastused`](https://www.npmjs.com/package/locize-node-lastused): This is an i18next plugin or standalone scriot to be used for locize service. It will update last used timestamps on reference keys from your locize project using xhr. It sets the last used date on your reference language's namespaces.
-    **This plugin is used when using node (server).**
-
-It was quite complicated to configure Next with Locize, mostly because of the universal way Next works, while Locize has dedicated packages depending on the runtime engine.
-
-> See [i18nextLocize.ts](./src/utils/i18nextLocize.ts) to see how it was all put together.
-> Also, we were inspired by [this SO question](https://stackoverflow.com/questions/55994799/how-to-integrate-next-i18next-nextjs-locize/58782594).
-
----
-
-## isomorphic-unfetch
-
-> Can be used to either polyfill the whole app, or used as a `fetch` function. _(Stands for "isomorphic universal fetch")_
-
-- [`isomorphic-unfetch`](https://www.npmjs.com/package/isomorphic-unfetch): Switches between unfetch & node-fetch for client & server.
-
-There are several libs to allow fetching data from a react app, [here is a comparison](https://www.npmtrends.com/isomorphic-fetch-vs-isomorphic-unfetch-vs-universal-fetch).
-
-The main reason for choosing this one is its very small bundle size, and it's universal.
+TODO
 
 ---
 
@@ -395,8 +276,6 @@ We also load each TS types one-by-one. One advantage of that is that **we can de
 > For instance, we tried using `@types/lodash.filter` but eventually removed it because it creates a mess that is hard to deal with.
 > Typings may be wrong and breaks our tests, in such case it's nice to have the flexibility not to use them.
 
-
-
 ---
 
 ## Next
@@ -407,17 +286,6 @@ We also load each TS types one-by-one. One advantage of that is that **we can de
     See [tutorial](https://nextjs.org/learn/basics/getting-started).
 - [`next-cookies`](https://www.npmjs.com/package/next-cookies): See [Cookies](#cookies)
 - [`next-with-apollo`](https://www.npmjs.com/package/next-with-apollo): Apollo HOC for Next.js
-
-
----
-
-## rc-tooltip
-
-> React Tooltip component
-
-- [`rc-tooltip`](https://www.npmjs.com/package/rc-tooltip): React tooltip
-
-Marked as alpha-3 version but stable. **Much better than Reactstrap Tooltip component.**
 
 ---
 
@@ -432,14 +300,6 @@ Marked as alpha-3 version but stable. **Much better than Reactstrap Tooltip comp
 - [`prop-types`](https://www.npmjs.com/package/prop-types): Runtime type checking for React props and similar objects.
 
 > **N.B**: `react` and `react-dom` must always use the same version.
-
----
-
-## recompose
-
-> Used to compose multiple HOC together
-
-- [`recompose`](https://www.npmjs.com/package/recompose): Recompose is a React utility belt for function components and higher-order components.
 
 ---
 
