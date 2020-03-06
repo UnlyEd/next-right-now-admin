@@ -11,11 +11,10 @@ export const ProductEdit = (props): JSX.Element => {
         <TextInput source="id" />
         {/*<ArrayInput source="images"><SimpleFormIterator><TextInput source="id" /></SimpleFormIterator></ArrayInput>*/}
         {/*<ReferenceArrayInput source="imagesIds" reference="images"><TextInput source="id" /></ReferenceArrayInput>*/}
-        <TextInput source="customer.id" />
-        <TextInput source="customer.id" />
+        <TextInput source="customer.label" />
         <TextInput source="price" />
         <TextInput source="title" />
-        <TextInput source="description" />
+        {/*<TextInput source="description" />*/}
       </SimpleForm>
     </Edit>
   );
