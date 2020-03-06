@@ -9429,6 +9429,16 @@ ra-core@^3.2.4:
     recompose "~0.26.0"
     reselect "~3.0.0"
 
+ra-data-graphql-prisma@0.0.10:
+  version "0.0.10"
+  resolved "https://registry.yarnpkg.com/ra-data-graphql-prisma/-/ra-data-graphql-prisma-0.0.10.tgz#687dbcfa9f4ba61754f1daac6521dc9d16fca14a"
+  integrity sha512-GPaTVrCoO8bRVsRe8tC/j49TUoftndPu7gF30TflNrtfH5rkk55hs2Qy3VNoZzHGNLb1J5ul6bHuyFhNKlsUUQ==
+  dependencies:
+    graphql-tag "^2.6.1"
+    lodash "~4.17.5"
+    pluralize "^7.0.0"
+    ra-data-graphql "^2.3.0"
+
 ra-data-graphql@^2.3.0:
   version "2.9.8"
   resolved "https://registry.yarnpkg.com/ra-data-graphql/-/ra-data-graphql-2.9.8.tgz#34aa8d1fc5f2437c6af387993d050e6cb8c7645b"
@@ -9439,16 +9449,6 @@ ra-data-graphql@^2.3.0:
     graphql-tag "^2.10.1"
     lodash "~4.17.5"
     pluralize "~7.0.0"
-
-ra-data-opencrud@0.0.7:
-  version "0.0.7"
-  resolved "https://registry.yarnpkg.com/ra-data-opencrud/-/ra-data-opencrud-0.0.7.tgz#0e7ed2bc9eb8a3a87f84fa934171885f3c874c5a"
-  integrity sha512-+0sxomSqSTNDJvHwWt4OgOtH0W1WgzExjHF9Df6xaSfqFJhEDPQOGo3a0XcT4xRkHzBC9dfF4W3kuKjQyvhhDw==
-  dependencies:
-    graphql-tag "^2.6.1"
-    lodash "~4.17.5"
-    pluralize "^7.0.0"
-    ra-data-graphql "^2.3.0"
 
 ra-i18n-polyglot@^3.2.4:
   version "3.2.4"

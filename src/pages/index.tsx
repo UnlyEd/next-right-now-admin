@@ -7,7 +7,7 @@ import ApolloClient from 'apollo-client';
 import { setContext } from 'apollo-link-context';
 import { createHttpLink } from 'apollo-link-http';
 import get from 'lodash.get';
-import buildGraphQLProvider, { buildQuery } from 'ra-data-opencrud';
+import buildGraphQLProvider, { buildQuery } from 'ra-data-graphql-prisma';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars,no-unused-vars
 import React, { Component } from 'react';
 import { Admin, Resource } from 'react-admin';
