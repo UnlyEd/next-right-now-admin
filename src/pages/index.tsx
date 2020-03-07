@@ -13,6 +13,7 @@ import { IntrospectionResult } from 'ra-data-graphql-prisma/dist/constants/inter
 // eslint-disable-next-line @typescript-eslint/no-unused-vars,no-unused-vars
 import React, { Component } from 'react';
 import { Admin, Resource } from 'react-admin';
+import { print } from 'graphql/language/printer'
 
 import { ProductEdit } from '../components/admin/ProductEdit';
 import { ProductList } from '../components/admin/ProductList';
@@ -43,19 +44,23 @@ const enhanceBuildQuery = (buildQuery) => (introspectionResults) => (
     acc: FieldNode[],
     introspectionResults: IntrospectionResult,
   ): string => {
-    console.log('fieldLookup', field, key)
     if (key === 'titleEN' || key === 'titleFR') {
       return 'title';
     }
     return key;
   };
 
-  return buildQuery(introspectionResults, fieldLookup)(
+  const builtQuery = buildQuery(introspectionResults, fieldLookup)(
     fetchType,
     resourceName,
     params,
     fragment,
   );
+
+  console.log('builtQuery', builtQuery);
+  console.debug(print(builtQuery.query), builtQuery.variables);
+
+  return builtQuery;
 };
 
 class Home extends Component<{}, {
