@@ -8,6 +8,10 @@ console.error = (...args): void => {
     // HACK: Muting error, fix as soon as https://github.com/zeit/next.js/issues/7915 gets resolved
     return;
   }
+  if (/Warning: Missing translation for key/.test(args[0])) {
+    // HACK: Muting error because it creates tons of noise
+    return;
+  }
   originalError.call(console, ...args);
 };
 
