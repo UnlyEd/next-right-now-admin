@@ -1,8 +1,4 @@
 import { Amplitude, AmplitudeProvider } from '@amplitude/react-amplitude';
-import { ApolloProvider } from '@apollo/react-hooks';
-import { config, library } from '@fortawesome/fontawesome-svg-core';
-import '@fortawesome/fontawesome-svg-core/styles.css';
-import { faGithub } from '@fortawesome/free-brands-svg-icons';
 import * as Sentry from '@sentry/node';
 import universalLanguageDetect from '@unly/universal-language-detector';
 import { ERROR_LEVELS } from '@unly/universal-language-detector/lib/utils/error';
@@ -10,36 +6,23 @@ import { isBrowser } from '@unly/utils';
 import { createLogger } from '@unly/utils-simple-logger';
 import { AmplitudeClient, Identify } from 'amplitude-js';
 import 'animate.css/animate.min.css'; // Loads animate.css CSS file. See https://github.com/daneden/animate.css
-import 'bootstrap/dist/css/bootstrap.min.css'; // Loads bootstrap CSS file. See https://stackoverflow.com/a/50002905/2391795
 import { IncomingMessage } from 'http';
 import get from 'lodash.get';
 import { NextPageContext } from 'next';
 import NextCookies from 'next-cookies';
 import NextApp from 'next/app';
-import 'rc-tooltip/assets/bootstrap.css';
 import React, { ErrorInfo } from 'react';
 
-import Layout from '../components/Layout';
-import withUniversalGraphQLDataLoader from '../hoc/withUniversalGraphQLDataLoader';
 import { AppInitialProps } from '../types/AppInitialProps';
 import { AppRenderProps } from '../types/AppRenderProps';
 import { Cookies } from '../types/Cookies';
-import { LayoutProps } from '../types/LayoutProps';
+import { PageProps } from '../types/PageProps';
 import { PublicHeaders } from '../types/PublicHeaders';
 import { UserSemiPersistentSession } from '../types/UserSemiPersistentSession';
-import { prepareGraphCMSLocaleHeader } from '../utils/graphcms';
-import { LANG_EN, resolveFallbackLanguage, SUPPORTED_LANGUAGES } from '../utils/i18n'; // XXX Init Sentry
-import i18nextLocize, { fetchTranslations, I18nextResources } from '../utils/i18nextLocize';
-import { getIframeReferrer, isRunningInIframe } from '../utils/iframe';
+import { LANG_EN, SUPPORTED_LANGUAGES } from '../utils/i18n'; // XXX Init Sentry
 import '../utils/ignoreNoisyWarningsHacks'; // HACK
 import '../utils/sentry';
 import UniversalCookiesManager from '../utils/UniversalCookiesManager';
-
-// See https://github.com/FortAwesome/react-fontawesome#integrating-with-other-tools-and-frameworks
-config.autoAddCss = false; // Tell Font Awesome to skip adding the CSS automatically since it's being imported above
-library.add(
-  faGithub,
-);
 
 const fileLabel = 'pages/_app';
 const logger = createLogger({
@@ -61,11 +44,9 @@ class NRNApp extends NextApp {
     const readonlyCookies: Cookies = NextCookies(ctx); // Parses Next.js cookies in a universal way (server + client)
     const cookiesManager: UniversalCookiesManager = new UniversalCookiesManager(req, res);
     const userSession: UserSemiPersistentSession = cookiesManager.getUserData();
-    const customerRef: string = process.env.CUSTOMER_REF;
     let publicHeaders: PublicHeaders = {};
 
     Sentry.configureScope((scope) => { // See https://www.npmjs.com/package/@sentry/node
-      scope.setTag('customer', customerRef);
       scope.setTag('userId', userSession.id);
       scope.setContext('userSession', userSession);
       scope.setContext('cookies', readonlyCookies);
@@ -106,15 +87,9 @@ class NRNApp extends NextApp {
         logger.error(error.message);
       },
     });
-    const bestCountryCodes: string[] = [lang, resolveFallbackLanguage(lang)];
-    const gcmsLocales: string = prepareGraphCMSLocaleHeader(bestCountryCodes);
-    if (!customerRef) {
-      throw Error(`Unable to resolve customerRef with "${customerRef}"`);
-    }
 
     // Calls page's `getInitialProps` and fills `appProps.pageProps` - XXX See https://nextjs.org/docs#custom-app
     const appProps: AppRenderProps = await NextApp.getInitialProps(props);
-    const defaultLocales: I18nextResources = await fetchTranslations(lang); // Pre-fetches translations from Locize API
 
     Sentry.configureScope((scope) => { // See https://www.npmjs.com/package/@sentry/node
       scope.setExtra('lang', lang);
@@ -122,15 +97,12 @@ class NRNApp extends NextApp {
 
     appProps.pageProps = {
       ...appProps.pageProps,
-      customerRef,
       headers: publicHeaders, // Publicly available headers - whitelist
       readonlyCookies,
       userSession,
-      bestCountryCodes, // i.e: ['en', 'fr']
-      gcmsLocales, // i.e: 'EN, FR' XXX MUST BE UPPERCASED - See https://graphcms.com/docs/api/content-api/#passing-a-header-flag
       lang, // i.e: 'en'
-      defaultLocales,
       isSSRReadyToRender: true,
+      isSSR: !!req,
     };
 
     return { ...appProps };
@@ -147,8 +119,7 @@ class NRNApp extends NextApp {
   render(): JSX.Element {
     const {
       Component,
-      pageProps,
-      apollo,
+      pageProps, // Type of AppPageProps
       router,
       err,
     }: AppRenderProps = this.props;
@@ -169,21 +140,20 @@ class NRNApp extends NextApp {
       level: Sentry.Severity.Debug,
     });
 
-    const i18nextInstance = i18nextLocize(pageProps.lang, pageProps.defaultLocales); // Apply i18next configuration with Locize backend
-
     // Build initial layout properties, they may be enhanced later on depending on the runtime engine
-    const layoutProps: LayoutProps = {
+    const enhancedPageProps: PageProps = {
       ...pageProps,
       err,
       router,
-      i18nextInstance,
     };
+
+    console.log('enhancedPageProps', enhancedPageProps);
 
     // XXX For an unknown reason, I noticed 2 render() calls. (each render call starts a new graphql request, and it makes debugging harder)
     //  The first one doesn't contain any data from the server (no data, almost nothing) and therefore result in errors along the react sub tree
     //  The second contains the expected data
     //  Due to this behaviour, an "isSSRReadyToRender" variable has been introduced, to make sure we only render the components when all the data have been provided
-    if (layoutProps.isSSRReadyToRender) {
+    if (enhancedPageProps.isSSRReadyToRender) {
       /**
        * App rendered both on client or server (universal/isomorphic)
        *
@@ -191,28 +161,15 @@ class NRNApp extends NextApp {
        * @constructor
        */
       const UniversalApp = (): JSX.Element => (
-        <ApolloProvider client={apollo}>
-          <Layout
-            {...layoutProps}
-          >
-            <Component
-              // XXX This "Component" is a dynamic Next.js page which depends on the current route
-            />
-          </Layout>
-        </ApolloProvider>
+        <Component
+          // XXX This "Component" is a dynamic Next.js page which depends on the current route
+          {...enhancedPageProps}
+        />
       );
 
       // On the browser, we render additional things, such as Amplitude (data analytics)
       if (isBrowser()) {
-        const userId = get(layoutProps, 'userSession.id', 'NOT_SET');
-        const isInIframe: boolean = isRunningInIframe();
-        const iframeReferrer: string = getIframeReferrer();
-
-        Sentry.configureScope((scope) => { // See https://www.npmjs.com/package/@sentry/node
-          scope.setTag('iframe', `${isInIframe}`);
-          scope.setExtra('iframe', isInIframe);
-          scope.setExtra('iframeReferrer', iframeReferrer);
-        });
+        const userId = get(enhancedPageProps, 'userSession.id', 'NOT_SET');
 
         // XXX Amplitude is disabled on the server side, it's only used on the client side
         //  (avoids double events + amplitude-js isn't server-side compatible anyway)
@@ -236,18 +193,15 @@ class NRNApp extends NextApp {
         amplitudeInstance.setVersionName(process.env.APP_VERSION); // i.e: 1.0.0
 
         // Inject additional variables in the layout
-        layoutProps.isInIframe = isInIframe;
-        layoutProps.amplitudeInstance = amplitudeInstance;
+        enhancedPageProps.amplitudeInstance = amplitudeInstance;
 
         // We're only doing this when detecting a new session, as it won't be executed multiple times for the same session anyway, and it avoids noise
         if (amplitudeInstance.isNewSession()) {
           // Store whether the visitor originally came from an iframe (and from where)
           const visitor: Identify = new amplitudeInstance.Identify();
           // XXX See https://github.com/amplitude/Amplitude-JavaScript/issues/223
-          visitor.setOnce('initial_lang', pageProps.lang); // DA Helps figuring out if the initial language (auto-detected) is changed afterwards
+          visitor.setOnce('initial_lang', enhancedPageProps.lang); // DA Helps figuring out if the initial language (auto-detected) is changed afterwards
           // DA This will help track down the users who discovered our platform because of an iframe
-          visitor.setOnce('initial_iframe', isInIframe);
-          visitor.setOnce('initial_iframeReferrer', iframeReferrer);
 
           amplitudeInstance.identify(visitor); // Send the new identify event to amplitude (updates user's identity)
         }
@@ -273,20 +227,10 @@ class NRNApp extends NextApp {
                   origin: location.origin,
                   name: null,
                 },
-                customer: {
-                  ref: layoutProps.customerRef,
-                },
-                lang: pageProps.lang,
-                iframe: isInIframe,
-                iframeReferrer: iframeReferrer,
+                lang: enhancedPageProps.lang,
               }}
               userProperties={{
-                customer: {
-                  ref: layoutProps.customerRef,
-                },
-                lang: pageProps.lang,
-                iframe: isInIframe,
-                iframeReferrer: iframeReferrer,
+                lang: enhancedPageProps.lang,
               }}
             >
               <UniversalApp />
@@ -318,5 +262,4 @@ class NRNApp extends NextApp {
   }
 }
 
-// Wraps all components in the tree with the data provider
-export default withUniversalGraphQLDataLoader(NRNApp);
+export default NRNApp;

@@ -31,35 +31,20 @@ jobs:
     steps:
       - uses: actions/checkout@v1 # Get last commit pushed - XXX See https://github.com/actions/checkout
       - name: Deploying on Zeit
-        run: yarn deploy:$(cat now.json | jq -r '.build.env.CUSTOMER_REF') --token $ZEIT_TOKEN
-        env:
-          ZEIT_TOKEN: ${{ secrets.ZEIT_TOKEN }} # Passing github's secret to the worker
-
-  # Runs E2E tests against the Zeit deployment
-  run-2e2-tests:
-    name: Run end to end (E2E) tests (Ubuntu 18.04)
-    runs-on: ubuntu-18.04
-    # Docker image with Cypress pre-installed
-    # https://github.com/cypress-io/cypress-docker-images/tree/master/included
-    container: cypress/included:3.8.3
-    needs: start-staging-deployment
-    steps:
-      - uses: actions/checkout@v1 # Get last commit pushed - XXX See https://github.com/actions/checkout
-      - name: Resolving deployment url from Zeit
-        # The following workflow is:
-        #  - getting all deployments data (by using the scope in `now.json`)
-        #  - then we get the last url (in Node.js it corresponds as `response.deployments[0].url`
-        #  - and then we remove the `"` character to pre-format url
-        # We need to set env the url for next step, formatted as `https://${url provided by API}`
+        # Workflow:
+        #   - Get stdout from deploy command (stderr shows build steps and stdout shows final url, what we are looking for)
+        #   - Set deployment url to show on PR message
+        #   - Create alias and link it
         run: |
-          apt update -y >/dev/null && apt install -y jq >/dev/null
-          ZEIT_DEPLOYMENT=`curl -H 'Accept: application/json' -H 'Content-Type: application/json' -H 'Authorization: Bearer ${{ secrets.ZEIT_TOKEN }}' https://api.zeit.co/v5/now/deployments?teamId=$(cat now.json | jq -r '.scope') | jq '.deployments [0].url' | tr -d \"`
-          echo "::set-env name=ZEIT_DEPLOYMENT_URL::https://$ZEIT_DEPLOYMENT"
+          ZEIT_DEPLOYMENT_OUTPUT=`yarn deploy --token $ZEIT_TOKEN`
 
-          ZEIT_DEPLOYEMENT_ALIAS=$(cat now.json | jq -r '.name')-${CURRENT_BRANCH##*/}.now.sh
-          echo "::set-env name=ZEIT_DEPLOYEMENT_ALIAS::https://$ZEIT_DEPLOYEMENT_ALIAS"
+          ZEIT_DEPLOYMENT_URL=`echo $ZEIT_DEPLOYMENT_OUTPUT | egrep -o 'https?://[^ ]+.now.sh'`
+          echo "::set-env name=ZEIT_DEPLOYMENT_URL::$ZEIT_DEPLOYMENT_URL"
 
-          npx now alias https://$ZEIT_DEPLOYMENT https://$ZEIT_DEPLOYEMENT_ALIAS --token $ZEIT_TOKEN
+          ZEIT_DEPLOYMENT_ALIAS=$(cat now.json | jq -r '.name')-${CURRENT_BRANCH##*/}.now.sh
+          echo "::set-env name=ZEIT_DEPLOYMENT_ALIAS::https://$ZEIT_DEPLOYMENT_ALIAS"
+
+          npx now alias $ZEIT_DEPLOYMENT_URL https://$ZEIT_DEPLOYMENT_ALIAS --token $ZEIT_TOKEN
         env:
           ZEIT_TOKEN: ${{ secrets.ZEIT_TOKEN }} # Passing github's secret to the worker
           CURRENT_BRANCH: ${{ github.ref }} # Passing current branch to worker
@@ -80,14 +65,37 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_CI_PR_COMMENT }}
         with:
-          msg: "[GitHub Actions]\nDeployment SUCCESS\n\t Commit ${{ github.sha }} successfully deployed to ${{ env.ZEIT_DEPLOYMENT_URL }}\n\tDeployment aliased as ${{ env.ZEIT_DEPLOYEMENT_ALIAS }}"
+          msg: "[GitHub Actions]\nDeployment SUCCESS\n\t Commit ${{ github.sha }} successfully deployed to ${{ env.ZEIT_DEPLOYMENT_URL }}\n\tDeployment aliased as ${{ env.ZEIT_DEPLOYMENT_ALIAS }}"
+
+  # Runs E2E tests against the Zeit deployment
+  run-2e2-tests:
+    name: Run end to end (E2E) tests (Ubuntu 18.04)
+    runs-on: ubuntu-18.04
+    # Docker image with Cypress pre-installed
+    # https://github.com/cypress-io/cypress-docker-images/tree/master/included
+    container: cypress/included:3.8.3
+    needs: start-staging-deployment
+    steps:
+      - uses: actions/checkout@v1 # Get last commit pushed - XXX See https://github.com/actions/checkout
+      - name: Resolving deployment url from Zeit
+        # The following workflow is:
+        #  - getting all deployments data (by using the scope in `now.json`)
+        #  - then we get the last url (in Node.js it corresponds as `response.deployments[0].url`
+        #  - and then we remove the `"` character to pre-format url
+        # We need to set env the url for next step, formatted as `https://${url provided by API}`
+        run: |
+          apt update -y >/dev/null && apt install -y jq >/dev/null
+          ZEIT_DEPLOYMENT=`curl -H 'Accept: application/json' -H 'Content-Type: application/json' -H 'Authorization: Bearer ${{ secrets.ZEIT_TOKEN }}' https://api.zeit.co/v5/now/deployments?name=$(cat now.json | jq -r '.name')&teamId=$(cat now.json | jq -r '.scope') | jq '.deployments [0].url' | tr -d \"`
+          echo "::set-env name=ZEIT_DEPLOYMENT_URL::https://$ZEIT_DEPLOYMENT"
+        env:
+          ZEIT_TOKEN: ${{ secrets.ZEIT_TOKEN }} # Passing github's secret to the worker
 
       # Run the E2E tests against the new Zeit deployment
       - name: Run E2E tests (Cypress)
         uses: cypress-io/github-action@v1 # XXX See https://github.com/cypress-io/github-action
         with:
           wait-on: ${{ env.ZEIT_DEPLOYMENT_URL }} # Be sure that the endpoint is ready by pinging it before starting tests, it has a timeout of 60seconds
-          config-file: cypress/config-customer1.json # The config file itself doesn't matter because we will override most settings anyway. We just need `projectId` to run the tests.
+          config-file: cypress/config-production.json # The config file itself doesn't matter because we will override most settings anyway. We just need `projectId` to run the tests.
           config: baseUrl=${{ env.ZEIT_DEPLOYMENT_URL }} # Overriding baseUrl provided by config file to test the new deployment
 
       # On E2E failure, upload screenshots

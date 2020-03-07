@@ -1,0 +1,7 @@
+{
+  "baseUrl": "https://nrn-admin.now.sh",
+  "projectId": "4dvdog",
+  "screenshotsFolder": "cypress/screenshots/production",
+  "videosFolder": "cypress/videos/production",
+  "env": {}
+}

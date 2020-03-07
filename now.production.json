@@ -1,0 +1,22 @@
+{
+  "version": 2,
+  "name": "nrn-admin",
+  "scope": "team_DAU7RcjwnftBzWFDi4ZuypN5",
+  "env": {},
+  "build": {
+    "env": {
+      "APP_STAGE": "production",
+      "GRAPHQL_API_ENDPOINT": "https://api-euwest.graphcms.com/v1/ck73ixhlv09yt01dv2ga1bkbp/master",
+      "GRAPHQL_API_KEY": "@nrn-admin-graphql-api-key",
+      "AMPLITUDE_API_KEY": "@nrn-admin-amplitude-api-key-production",
+      "SENTRY_DSN": "@nrn-admin-sentry-dsn"
+    }
+  },
+  "routes": [
+    {
+      "src": "/robots.txt",
+      "dest": "/robots/!production.txt"
+    }
+  ],
+  "public": false
+}
