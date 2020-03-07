@@ -11,6 +11,7 @@ export const ProductList = (props: ListProps): JSX.Element => {
       <Datagrid rowClick="edit">
         {/*<TextField source="id" />*/}
         <TextField source="title" />
+        {/*<TextField source="titleFR" />*/}
         {/*<ArrayField source="images"><SingleFieldList><ChipField source="id" /></SingleFieldList></ArrayField>*/}
         {/*<ReferenceArrayField source="imagesIds" reference="images"><TextField source="id" /></ReferenceArrayField>*/}
         <TextField source="customer.label" />

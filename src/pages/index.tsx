@@ -6,8 +6,10 @@ import { InMemoryCache } from 'apollo-cache-inmemory';
 import ApolloClient from 'apollo-client';
 import { setContext } from 'apollo-link-context';
 import { createHttpLink } from 'apollo-link-http';
+import { FieldNode, IntrospectionField } from 'graphql';
 import get from 'lodash.get';
 import buildGraphQLProvider, { buildQuery } from 'ra-data-graphql-prisma';
+import { IntrospectionResult } from 'ra-data-graphql-prisma/dist/constants/interfaces';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars,no-unused-vars
 import React, { Component } from 'react';
 import { Admin, Resource } from 'react-admin';
@@ -35,7 +37,20 @@ const enhanceBuildQuery = (buildQuery) => (introspectionResults) => (
   console.log('resourceName', resourceName);
   console.log('params', params);
 
-  return buildQuery(introspectionResults)(
+  const fieldLookup = (
+    field: IntrospectionField,
+    key: string,
+    acc: FieldNode[],
+    introspectionResults: IntrospectionResult,
+  ): string => {
+    console.log('fieldLookup', field, key)
+    if (field.name === 'titleEN' || field.name === 'titleFR') {
+      return 'title';
+    }
+    return field.name;
+  };
+
+  return buildQuery(introspectionResults, fieldLookup)(
     fetchType,
     resourceName,
     params,
@@ -76,6 +91,7 @@ class Home extends Component<{}, {
     });
 
     const dataProvider = await buildGraphQLProvider({
+      // @ts-ignore
       client,
       // @ts-ignore
       buildQuery: enhanceBuildQuery(buildQuery),
