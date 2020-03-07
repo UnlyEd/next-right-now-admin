@@ -44,10 +44,10 @@ const enhanceBuildQuery = (buildQuery) => (introspectionResults) => (
     introspectionResults: IntrospectionResult,
   ): string => {
     console.log('fieldLookup', field, key)
-    if (field.name === 'titleEN' || field.name === 'titleFR') {
+    if (key === 'titleEN' || key === 'titleFR') {
       return 'title';
     }
-    return field.name;
+    return key;
   };
 
   return buildQuery(introspectionResults, fieldLookup)(
