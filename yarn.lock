@@ -9429,10 +9429,9 @@ ra-core@^3.2.4:
     recompose "~0.26.0"
     reselect "~3.0.0"
 
-ra-data-graphql-prisma@0.0.10:
+"ra-data-graphql-prisma@git://github.com/Vadorequest/ra-data-graphql-prisma.git#graphcms-localised-fields":
   version "0.0.10"
-  resolved "https://registry.yarnpkg.com/ra-data-graphql-prisma/-/ra-data-graphql-prisma-0.0.10.tgz#687dbcfa9f4ba61754f1daac6521dc9d16fca14a"
-  integrity sha512-GPaTVrCoO8bRVsRe8tC/j49TUoftndPu7gF30TflNrtfH5rkk55hs2Qy3VNoZzHGNLb1J5ul6bHuyFhNKlsUUQ==
+  resolved "git://github.com/Vadorequest/ra-data-graphql-prisma.git#cedc9747ec111ff3bc5d1e076e59188934c69cbe"
   dependencies:
     graphql-tag "^2.6.1"
     lodash "~4.17.5"
