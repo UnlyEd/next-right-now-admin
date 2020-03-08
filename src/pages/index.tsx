@@ -21,6 +21,7 @@ import Head from '../components/Head';
 import Loader from '../components/Loader';
 import overriddenQueries from '../queries';
 import { GraphQLDataProvider } from '../types/GraphQLDataProvider';
+import { getLocalisedFieldAlias, isLocalisedField } from '../utils/graphcms';
 
 const fileLabel = 'pages/index';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars
@@ -44,8 +45,8 @@ const enhanceBuildQuery = (buildQuery) => (introspectionResults) => (
     acc: FieldNode[],
     introspectionResults: IntrospectionResult,
   ): string => {
-    if (key === 'titleEN' || key === 'titleFR') {
-      return 'title';
+    if (isLocalisedField(key)) {
+      return getLocalisedFieldAlias(key);
     }
     return key;
   };
