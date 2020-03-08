@@ -10,6 +10,7 @@ import { CREATE, UPDATE } from 'react-admin';
 
 import overriddenQueries from '../queries';
 import { BuiltQuery } from '../types/BuiltQuery';
+import { Record } from './record';
 
 /**
  * GraphCMS country codes separator expected in the header
@@ -92,12 +93,13 @@ export const fieldLookup = (
  * @param data
  * @param previousData
  */
-export const sanitizeMutationUpdateData = (data: object, previousData: object): object => {
-  const sanitizedData = {};
+export const sanitizeMutationUpdateData = (data: Record, previousData: Record): object => {
+  const sanitizedData = {
+    id: data.id, // The id is required to be converted to a WHERE statement by the query builder
+  };
 
-  // Always remove createdAt, updatedAt, id, because they shouldn't be updated
+  // Always remove createdAt, updatedAt because they shouldn't be updated
   const blackListedFields = [
-    'id',
     'createdAt',
     'updatedAt',
   ];
