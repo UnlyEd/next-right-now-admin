@@ -21,7 +21,10 @@ describe(`utils/graphcms.ts`, () => {
   describe(`sanitizeMutationUpdateData`, () => {
     describe(`should sanitize data and only keep actual changes`, () => {
       test(`when using a simple mutation`, async () => {
-        expect(sanitizeMutationUpdateData(simpleMutation.data, simpleMutation.previousData)).toEqual({ price: 5 });
+        expect(sanitizeMutationUpdateData(simpleMutation.data, simpleMutation.previousData)).toEqual({
+          id: 'cjvzab1w104fi0910mr86obva',
+          price: 5,
+        });
       });
     });
   });
