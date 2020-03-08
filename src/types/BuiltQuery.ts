@@ -8,7 +8,13 @@ import { DocumentNode } from 'graphql';
 export type BuiltQuery = {
   query: DocumentNode;
   variables: {
-    where?: object;
+    [key: string]: any;
+    where?: {
+      [key: string]: any;
+    };
+    data?: {
+      [key: string]: any;
+    };
   };
   parseResponse: Function;
 }

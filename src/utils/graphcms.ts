@@ -117,6 +117,25 @@ export const sanitizeMutationUpdateData = (data: Record, previousData: Record): 
   return sanitizedData;
 };
 
+export const sanitizeMutationCreateData = (data: Record): object => {
+  const sanitizedData = {};
+
+  // Always remove createdAt, updatedAt because they shouldn't be updated
+  const blackListedFields = [
+    'createdAt',
+    'updatedAt',
+  ];
+
+  map(data, (value, fieldName) => {
+    console.log('fieldName', fieldName);
+    if (!includes(blackListedFields, fieldName)) {
+      sanitizedData[fieldName] = value;
+    }
+  });
+
+  return sanitizedData;
+};
+
 /**
  * Wrapper around the native ra-data-graphql-prisma "buildQuery" function.
  * We wrap it so that we may override the default behaviour for our actual data provider (GraphCMS)
@@ -136,23 +155,27 @@ export const enhanceBuildQuery = (buildQuery) => (introspectionResults) => (
   resourceName,
   params,
 ): BuiltQuery => {
+  const { data } = params;
   const fragment = get(overriddenQueries, `${resourceName}.${fetchType}`);
+  // console.log('introspectionResults', introspectionResults);
   console.log('fragment', fragment);
   console.log('fetchType', fetchType);
   console.log('resourceName', resourceName);
   console.log('initial params', JSON.stringify(params, null, 2));
 
+  // Step 1 - Sanitize data so that the generated query/mutation is correct (structure/shape)
   switch (fetchType) {
     case UPDATE:
-      const { data, previousData } = params;
+      const { previousData } = params;
 
       // Override data by removing all non-updated and blacklisted fields
       params.data = sanitizeMutationUpdateData(data, previousData);
       break;
     case CREATE:
 
-      break;
+      params.data = sanitizeMutationCreateData(data);
 
+      break;
     default:
       break;
   }
@@ -163,9 +186,26 @@ export const enhanceBuildQuery = (buildQuery) => (introspectionResults) => (
     params,
     fragment,
   );
+  const { query, variables } = builtQuery;
+
+  // Step 2 - Sanitize data so that the executed query/mutation contains the expected variables
+  switch (fetchType) {
+    case UPDATE:
+    case CREATE:
+      // Add i18n data back, because they were removed by the query builder (because they didn't match any known field)
+      map(params.data, (value: any, fieldName: string) => {
+        if (isLocalisedField(fieldName)) {
+          variables.data[fieldName] = value;
+        }
+      });
+
+      break;
+    default:
+      break;
+  }
 
   console.log('builtQuery', builtQuery);
-  console.debug(print(builtQuery.query), '- Variables:', builtQuery.variables, ' using params:', params);
+  console.debug(print(query), '- Variables:', variables, ' using params:', params);
 
   return builtQuery;
 };

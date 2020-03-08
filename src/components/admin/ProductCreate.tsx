@@ -6,10 +6,9 @@ const ProductCreate = (props): JSX.Element => {
   return (
     <Create {...props}>
       <SimpleForm>
+        <TextInput source="titleEN" label={"Title (EN)"} />
+        <TextInput source="titleFR" label={"Title (FR)"} />
         <NumberInput source="price" />
-        <TextInput source="title" />
-        <TextInput source="titleEN" />
-        <TextInput source="titleFR" />
       </SimpleForm>
     </Create>
   );
