@@ -9,6 +9,7 @@ import { IntrospectionResult } from 'ra-data-graphql-prisma/src/constants/interf
 import { CREATE, UPDATE } from 'react-admin';
 
 import overriddenQueries from '../queries';
+import { BuiltQuery } from '../types/BuiltQuery';
 
 /**
  * GraphCMS country codes separator expected in the header
@@ -132,12 +133,12 @@ export const enhanceBuildQuery = (buildQuery) => (introspectionResults) => (
   fetchType,
   resourceName,
   params,
-) => {
+): BuiltQuery => {
   const fragment = get(overriddenQueries, `${resourceName}.${fetchType}`);
   console.log('fragment', fragment);
   console.log('fetchType', fetchType);
   console.log('resourceName', resourceName);
-  console.log('initial params', params);
+  console.log('initial params', JSON.stringify(params, null, 2));
 
   switch (fetchType) {
     case UPDATE:
@@ -154,7 +155,7 @@ export const enhanceBuildQuery = (buildQuery) => (introspectionResults) => (
       break;
   }
 
-  const builtQuery = buildQuery(introspectionResults, fieldLookup)(
+  const builtQuery: BuiltQuery = buildQuery(introspectionResults, fieldLookup)(
     fetchType,
     resourceName,
     params,
@@ -162,7 +163,7 @@ export const enhanceBuildQuery = (buildQuery) => (introspectionResults) => (
   );
 
   console.log('builtQuery', builtQuery);
-  console.debug(print(builtQuery.query), builtQuery.variables);
+  console.debug(print(builtQuery.query), '- Variables:', builtQuery.variables, ' using params:', params);
 
   return builtQuery;
 };
