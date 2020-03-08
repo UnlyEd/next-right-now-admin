@@ -1,8 +1,12 @@
+import { diff, DiffEdit } from 'deep-diff';
 import { FieldNode, IntrospectionField } from 'graphql';
 import { print } from 'graphql/language/printer';
 import endsWith from 'lodash.endswith';
 import get from 'lodash.get';
+import includes from 'lodash.includes';
+import map from 'lodash.map';
 import { IntrospectionResult } from 'ra-data-graphql-prisma/src/constants/interfaces';
+import { CREATE, UPDATE } from 'react-admin';
 
 import overriddenQueries from '../queries';
 
@@ -62,8 +66,8 @@ export const getLocalisedFieldAlias = (fieldName: string): string => {
  * See https://github.com/marcantoine/ra-data-graphql-prisma/pull/12#issuecomment-596074907
  *
  * @param field
- * @param key
- * @param acc
+ * @param key Field name
+ * @param acc Accumulator
  * @param introspectionResults
  */
 export const fieldLookup = (
@@ -79,11 +83,48 @@ export const fieldLookup = (
 };
 
 /**
+ * Sanitize data for a mutation UPDATE operation
+ *
+ * Remove from "data" all blacklisted fields
+ * Remove from "data" all fields that weren't updated (equal to previousData)
+ *
+ * @param data
+ * @param previousData
+ */
+export const sanitizeMutationUpdateData = (data: object, previousData: object): object => {
+  const sanitizedData = {};
+
+  // Always remove createdAt, updatedAt, id, because they shouldn't be updated
+  const blackListedFields = [
+    'id',
+    'createdAt',
+    'updatedAt',
+  ];
+
+  const changes = diff(previousData, data);
+
+  map(changes, (change: DiffEdit<object>) => {
+    const fieldName: string = change.path[0];
+
+    if (!includes(blackListedFields, fieldName)) {
+      sanitizedData[fieldName] = change.rhs;
+    }
+  });
+
+  return sanitizedData;
+};
+
+/**
  * Wrapper around the native ra-data-graphql-prisma "buildQuery" function.
  * We wrap it so that we may override the default behaviour for our actual data provider (GraphCMS)
  *
  * Features:
  *  - I18n support (content localisation)
+ *  - Mutations
+ *    - UDPATE: Only send updated fields
+ *      XXX Required because otherwise it'd send all the record's data, and override them with those that have been updated
+ *       But GraphCMS schema won't allow createdAt/updatedAt fields in a mutation, so we only provide updated fields instead
+ *    - CREATE: Only send specified values (those for whom there is a field in the form)
  *
  * @param buildQuery
  */
@@ -96,7 +137,22 @@ export const enhanceBuildQuery = (buildQuery) => (introspectionResults) => (
   console.log('fragment', fragment);
   console.log('fetchType', fetchType);
   console.log('resourceName', resourceName);
-  console.log('params', params);
+  console.log('initial params', params);
+
+  switch (fetchType) {
+    case UPDATE:
+      const { data, previousData } = params;
+
+      // Override data by removing all non-updated and blacklisted fields
+      params.data = sanitizeMutationUpdateData(data, previousData);
+      break;
+    case CREATE:
+
+      break;
+
+    default:
+      break;
+  }
 
   const builtQuery = buildQuery(introspectionResults, fieldLookup)(
     fetchType,
