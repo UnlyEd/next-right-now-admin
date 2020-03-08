@@ -52,9 +52,18 @@ export type ListProps = {
   hasShow: boolean;
   ids: string[];
   loading: boolean;
+  match: {
+    path: string;
+    url: string;
+    isExact: boolean;
+    params: object;
+  };
   onSelect: Function;
   onToggleItem: Function;
   onUnselectItems: Function;
+  options: {
+    label: string;
+  };
   page: number;
   pagination: React.ReactNode | boolean;
   perPage: number; // Default: 10
