@@ -10,6 +10,7 @@ import buildGraphQLProvider, { buildQuery } from 'ra-data-graphql-prisma';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars,no-unused-vars
 import React, { Component } from 'react';
 import { Admin, Resource } from 'react-admin';
+import ProductCreate from '../components/admin/ProductCreate';
 
 import { ProductEdit } from '../components/admin/ProductEdit';
 import { ProductList } from '../components/admin/ProductList';
@@ -91,7 +92,7 @@ class Home extends Component<{}, {
               title="Next Right Now - Admin"
               dataProvider={dataProvider}
             >
-              <Resource name="Product" list={ProductList} edit={ProductEdit} />
+              <Resource name="Product" list={ProductList} edit={ProductEdit} create={ProductCreate} />
             </Admin>
           </>
         )}
