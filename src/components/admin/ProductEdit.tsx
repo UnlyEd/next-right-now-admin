@@ -1,5 +1,5 @@
 import React from 'react';
-import { ArrayInput, Edit, FileField, ImageField, SimpleForm, SimpleFormIterator, TextInput } from 'react-admin';
+import { ArrayInput, Edit, FileField, ImageField, NumberInput, SimpleForm, SimpleFormIterator, TextInput } from 'react-admin';
 
 export const ProductEdit = (props): JSX.Element => {
   console.log('productEdit props', props);
@@ -20,7 +20,7 @@ export const ProductEdit = (props): JSX.Element => {
         {/*>*/}
         {/*  <TextInput source="id" />*/}
         {/*</ReferenceArrayInput>*/}
-        <TextInput source="price" />
+        <NumberInput source="price" />
         <TextInput source="title" />
         <TextInput source="titleEN" />
         <TextInput source="titleFR" />
