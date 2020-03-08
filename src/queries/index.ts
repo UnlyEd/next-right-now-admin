@@ -1,28 +1,9 @@
-import { GET_LIST } from 'react-admin';
-import gql from 'graphql-tag';
+import { GET_LIST, GET_ONE } from 'react-admin';
+import { product } from '../gql/fragments/product';
 
 export default {
   Product: {
-    [GET_LIST]: gql`
-      fragment product on Product {
-        id
-        title
-        titleFR: title(locale: FR)
-        titleEN: title(locale: EN)
-#        description: description(locale: FR)
-#        descriptionFR: description(locale: FR)
-        price
-        customer {
-          label
-        }
-        images {
-          id
-          url
-          height
-          width
-          fileName
-        }
-      }
-    `
+    [GET_LIST]: product.productFields,
+    [GET_ONE]: product.productFields,
   },
 };

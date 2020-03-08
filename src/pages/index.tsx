@@ -61,6 +61,7 @@ class Home extends Component<{}, {
       client,
       // @ts-ignore
       buildQuery: enhanceBuildQuery(buildQuery),
+      debug: true,
     });
     this.setState({
       dataProvider,
