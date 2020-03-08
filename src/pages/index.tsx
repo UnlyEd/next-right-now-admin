@@ -10,10 +10,10 @@ import buildGraphQLProvider, { buildQuery } from 'ra-data-graphql-prisma';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars,no-unused-vars
 import React, { Component } from 'react';
 import { Admin, Resource } from 'react-admin';
-import ProductCreate from '../components/admin/ProductCreate';
 
-import { ProductEdit } from '../components/admin/ProductEdit';
-import { ProductList } from '../components/admin/ProductList';
+import ProductCreate from '../components/admin/ProductCreate';
+import ProductEdit from '../components/admin/ProductEdit';
+import ProductList from '../components/admin/ProductList';
 import Head from '../components/Head';
 import Loader from '../components/Loader';
 import { GraphQLDataProvider } from '../types/GraphQLDataProvider';

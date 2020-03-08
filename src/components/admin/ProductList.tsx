@@ -2,7 +2,7 @@ import React from 'react';
 import { Datagrid, List, TextField } from 'react-admin';
 import { ListProps } from '../../types/admin/ListProps';
 
-export const ProductList = (props: ListProps): JSX.Element => {
+const ProductList = (props: ListProps): JSX.Element => {
   console.log('ProductList.props', props);
   return (
     <List
@@ -19,3 +19,5 @@ export const ProductList = (props: ListProps): JSX.Element => {
     </List>
   );
 };
+
+export default ProductList;

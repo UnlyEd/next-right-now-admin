@@ -1,7 +1,7 @@
 import React from 'react';
 import { ArrayInput, Edit, FileField, ImageField, NumberInput, SimpleForm, SimpleFormIterator, TextInput } from 'react-admin';
 
-export const ProductEdit = (props): JSX.Element => {
+const ProductEdit = (props): JSX.Element => {
   console.log('productEdit props', props);
   return (
     <Edit {...props}>
@@ -29,3 +29,5 @@ export const ProductEdit = (props): JSX.Element => {
     </Edit>
   );
 };
+
+export default ProductEdit;
