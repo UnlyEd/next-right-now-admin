@@ -6,51 +6,22 @@ import { InMemoryCache } from 'apollo-cache-inmemory';
 import ApolloClient from 'apollo-client';
 import { setContext } from 'apollo-link-context';
 import { createHttpLink } from 'apollo-link-http';
-import { FieldNode, IntrospectionField } from 'graphql';
-import get from 'lodash.get';
 import buildGraphQLProvider, { buildQuery } from 'ra-data-graphql-prisma';
-import { IntrospectionResult } from 'ra-data-graphql-prisma/dist/constants/interfaces';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars,no-unused-vars
 import React, { Component } from 'react';
 import { Admin, Resource } from 'react-admin';
-import { print } from 'graphql/language/printer'
 
 import { ProductEdit } from '../components/admin/ProductEdit';
 import { ProductList } from '../components/admin/ProductList';
 import Head from '../components/Head';
 import Loader from '../components/Loader';
-import overriddenQueries from '../queries';
 import { GraphQLDataProvider } from '../types/GraphQLDataProvider';
-import { fieldLookup, getLocalisedFieldAlias, isLocalisedField } from '../utils/graphcms';
+import { enhanceBuildQuery } from '../utils/graphcms';
 
 const fileLabel = 'pages/index';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars
   label: fileLabel,
 });
-
-const enhanceBuildQuery = (buildQuery) => (introspectionResults) => (
-  fetchType,
-  resourceName,
-  params,
-) => {
-  const fragment = get(overriddenQueries, `${resourceName}.${fetchType}`);
-  console.log('fragment', fragment);
-  console.log('fetchType', fetchType);
-  console.log('resourceName', resourceName);
-  console.log('params', params);
-
-  const builtQuery = buildQuery(introspectionResults, fieldLookup)(
-    fetchType,
-    resourceName,
-    params,
-    fragment,
-  );
-
-  console.log('builtQuery', builtQuery);
-  console.debug(print(builtQuery.query), builtQuery.variables);
-
-  return builtQuery;
-};
 
 class Home extends Component<{}, {
   dataProvider: GraphQLDataProvider;

@@ -1,6 +1,10 @@
 import { FieldNode, IntrospectionField } from 'graphql';
+import { print } from 'graphql/language/printer';
 import endsWith from 'lodash.endswith';
-import { IntrospectionResult } from 'ra-data-graphql-prisma/dist/constants/interfaces';
+import get from 'lodash.get';
+import { IntrospectionResult } from 'ra-data-graphql-prisma/src/constants/interfaces';
+
+import overriddenQueries from '../queries';
 
 /**
  * GraphCMS country codes separator expected in the header
@@ -72,4 +76,37 @@ export const fieldLookup = (
     return getLocalisedFieldAlias(key);
   }
   return key;
+};
+
+/**
+ * Wrapper around the native ra-data-graphql-prisma "buildQuery" function.
+ * We wrap it so that we may override the default behaviour for our actual data provider (GraphCMS)
+ *
+ * Features:
+ *  - I18n support (content localisation)
+ *
+ * @param buildQuery
+ */
+export const enhanceBuildQuery = (buildQuery) => (introspectionResults) => (
+  fetchType,
+  resourceName,
+  params,
+) => {
+  const fragment = get(overriddenQueries, `${resourceName}.${fetchType}`);
+  console.log('fragment', fragment);
+  console.log('fetchType', fetchType);
+  console.log('resourceName', resourceName);
+  console.log('params', params);
+
+  const builtQuery = buildQuery(introspectionResults, fieldLookup)(
+    fetchType,
+    resourceName,
+    params,
+    fragment,
+  );
+
+  console.log('builtQuery', builtQuery);
+  console.debug(print(builtQuery.query), builtQuery.variables);
+
+  return builtQuery;
 };
