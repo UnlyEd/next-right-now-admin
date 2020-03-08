@@ -150,7 +150,7 @@ export const sanitizeMutationCreateData = (data: Record): object => {
  *
  * @param buildQuery
  */
-export const enhanceBuildQuery = (buildQuery) => (introspectionResults) => (
+export const enhanceBuildQuery = (buildQuery) => (introspectionResults: IntrospectionResult) => (
   fetchType,
   resourceName,
   params,

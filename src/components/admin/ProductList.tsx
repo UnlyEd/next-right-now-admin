@@ -7,11 +7,15 @@ const ProductList = (props: ListProps): JSX.Element => {
   return (
     <List
       {...props}
+      sort={{
+        field: 'titleEN',
+        order: 'DESC',
+      }}
     >
       <Datagrid rowClick="edit">
         <TextField source="title" />
-        <TextField source="titleEN" label={"Title (EN)"} />
-        <TextField source="titleFR" label={"Title (FR)"} />
+        <TextField source="titleEN" label={'Title (EN)'} />
+        <TextField source="titleFR" label={'Title (FR)'} />
         {/*<ArrayField source="images"><SingleFieldList><ChipField source="id" /></SingleFieldList></ArrayField>*/}
         {/*<ReferenceArrayField source="imagesIds" reference="images"><TextField source="id" /></ReferenceArrayField>*/}
         <TextField source="customer.label" label={'Customer'} />
