@@ -6,7 +6,7 @@ export default {
     [GET_LIST]: gql`
       fragment product on Product {
         id
-        title: title(locale: FR)
+        title
         titleFR: title(locale: FR)
         titleEN: title(locale: EN)
 #        description: description(locale: FR)

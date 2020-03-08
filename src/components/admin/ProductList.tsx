@@ -10,7 +10,8 @@ const ProductList = (props: ListProps): JSX.Element => {
     >
       <Datagrid rowClick="edit">
         <TextField source="title" />
-        <TextField source="titleFR" />
+        <TextField source="titleEN" label={"Title (EN)"} />
+        <TextField source="titleFR" label={"Title (FR)"} />
         {/*<ArrayField source="images"><SingleFieldList><ChipField source="id" /></SingleFieldList></ArrayField>*/}
         {/*<ReferenceArrayField source="imagesIds" reference="images"><TextField source="id" /></ReferenceArrayField>*/}
         <TextField source="customer.label" label={'Customer'} />

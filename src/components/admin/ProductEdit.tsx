@@ -20,10 +20,10 @@ const ProductEdit = (props): JSX.Element => {
         {/*>*/}
         {/*  <TextInput source="id" />*/}
         {/*</ReferenceArrayInput>*/}
-        <NumberInput source="price" />
         <TextInput source="title" />
-        <TextInput source="titleEN" />
-        <TextInput source="titleFR" />
+        <TextInput source="titleEN" label={"Title (EN)"} />
+        <TextInput source="titleFR" label={"Title (FR)"} />
+        <NumberInput source="price" />
         {/*<TextInput source="description" />*/}
       </SimpleForm>
     </Edit>
