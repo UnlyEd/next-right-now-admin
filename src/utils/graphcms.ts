@@ -1,4 +1,6 @@
+import { FieldNode, IntrospectionField } from 'graphql';
 import endsWith from 'lodash.endswith';
+import { IntrospectionResult } from 'ra-data-graphql-prisma/dist/constants/interfaces';
 
 /**
  * GraphCMS country codes separator expected in the header
@@ -48,4 +50,26 @@ export const isLocalisedField = (fieldName: string): boolean => {
  */
 export const getLocalisedFieldAlias = (fieldName: string): string => {
   return fieldName.substring(0, fieldName.length - 2);
+};
+
+/**
+ * Resolve the real field name, even if it is a localised field
+ *
+ * See https://github.com/marcantoine/ra-data-graphql-prisma/pull/12#issuecomment-596074907
+ *
+ * @param field
+ * @param key
+ * @param acc
+ * @param introspectionResults
+ */
+export const fieldLookup = (
+  field: IntrospectionField,
+  key: string,
+  acc: FieldNode[],
+  introspectionResults: IntrospectionResult,
+): string => {
+  if (isLocalisedField(key)) {
+    return getLocalisedFieldAlias(key);
+  }
+  return key;
 };

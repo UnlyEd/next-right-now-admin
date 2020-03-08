@@ -21,7 +21,7 @@ import Head from '../components/Head';
 import Loader from '../components/Loader';
 import overriddenQueries from '../queries';
 import { GraphQLDataProvider } from '../types/GraphQLDataProvider';
-import { getLocalisedFieldAlias, isLocalisedField } from '../utils/graphcms';
+import { fieldLookup, getLocalisedFieldAlias, isLocalisedField } from '../utils/graphcms';
 
 const fileLabel = 'pages/index';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars
@@ -38,18 +38,6 @@ const enhanceBuildQuery = (buildQuery) => (introspectionResults) => (
   console.log('fetchType', fetchType);
   console.log('resourceName', resourceName);
   console.log('params', params);
-
-  const fieldLookup = (
-    field: IntrospectionField,
-    key: string,
-    acc: FieldNode[],
-    introspectionResults: IntrospectionResult,
-  ): string => {
-    if (isLocalisedField(key)) {
-      return getLocalisedFieldAlias(key);
-    }
-    return key;
-  };
 
   const builtQuery = buildQuery(introspectionResults, fieldLookup)(
     fetchType,
