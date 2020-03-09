@@ -5,6 +5,9 @@ export const product = {
   productFields: gql`
     fragment productFields on Product {
       id
+      status
+      createdAt
+      updatedAt
       title
       titleFR: title(locale: FR)
       titleEN: title(locale: EN)
