@@ -72,7 +72,7 @@ export const getLocalisedFieldAlias = (fieldName: string): string => {
  * @param acc Accumulator
  * @param introspectionResults
  */
-export const fieldLookup = (
+export const fieldAliasResolver = (
   field: IntrospectionField,
   key: string,
   acc: FieldNode[],
@@ -180,7 +180,7 @@ export const enhanceBuildQuery = (buildQuery) => (introspectionResults: Introspe
       break;
   }
 
-  const builtQuery: BuiltQuery = buildQuery(introspectionResults, fieldLookup)(
+  const builtQuery: BuiltQuery = buildQuery(introspectionResults, fieldAliasResolver)(
     fetchType,
     resourceName,
     params,
