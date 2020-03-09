@@ -5,7 +5,9 @@ const ProductCreate = (props): JSX.Element => {
   console.log('productCreate props', props);
   return (
     <Create {...props}>
-      <SimpleForm>
+      <SimpleForm
+        redirect={'list'}
+      >
         {/*<ReferenceInput label="Customer" source="customer" reference="Customer">*/}
         {/*  <SelectInput optionText="label" />*/}
         {/*</ReferenceInput>*/}
