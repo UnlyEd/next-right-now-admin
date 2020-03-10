@@ -5,7 +5,7 @@ import endsWith from 'lodash.endswith';
 import get from 'lodash.get';
 import includes from 'lodash.includes';
 import map from 'lodash.map';
-import { IntrospectionResult } from '@unly/ra-data-graphql-prisma/src/constants/interfaces';
+import { IntrospectionResult } from '@unly/ra-data-graphql-prisma/dist/constants/interfaces';
 import { CREATE, UPDATE } from 'react-admin';
 
 import overriddenQueries from '../queries';
