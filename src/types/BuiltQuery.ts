@@ -1,5 +1,5 @@
 /**
- * Defined in node_modules/ra-data-graphql-prisma/src/buildQuery.ts
+ * Defined in node_modules/@unly/ra-data-graphql-prisma/src/buildQuery.ts
  * But aren't defined/exported and must be re-declared here to be usable in our project
  */
 import { DocumentNode } from 'graphql';

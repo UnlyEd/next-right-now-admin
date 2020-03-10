@@ -5,7 +5,7 @@ import endsWith from 'lodash.endswith';
 import get from 'lodash.get';
 import includes from 'lodash.includes';
 import map from 'lodash.map';
-import { IntrospectionResult } from 'ra-data-graphql-prisma/src/constants/interfaces';
+import { IntrospectionResult } from '@unly/ra-data-graphql-prisma/src/constants/interfaces';
 import { CREATE, UPDATE } from 'react-admin';
 
 import overriddenQueries from '../queries';
@@ -65,7 +65,7 @@ export const getLocalisedFieldAlias = (fieldName: string): string => {
 /**
  * Resolve the real field name, even if it is a localised field
  *
- * See https://github.com/marcantoine/ra-data-graphql-prisma/pull/12#issuecomment-596074907
+ * See https://github.com/marcantoine/@unly/ra-data-graphql-prisma/pull/12#issuecomment-596074907
  *
  * @param field
  * @param key Field name
@@ -137,7 +137,7 @@ export const sanitizeMutationCreateData = (data: Record): object => {
 };
 
 /**
- * Wrapper around the native ra-data-graphql-prisma "buildQuery" function.
+ * Wrapper around the native @unly/ra-data-graphql-prisma "buildQuery" function.
  * We wrap it so that we may override the default behaviour for our actual data provider (GraphCMS)
  *
  * Features:
