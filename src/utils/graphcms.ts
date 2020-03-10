@@ -195,6 +195,9 @@ export const enhanceBuildQuery = (buildQuery) => (introspectionResults: Introspe
       // Add i18n data back, because they were removed by the query builder (because they didn't match any known field)
       map(params.data, (value: any, fieldName: string) => {
         if (isLocalisedField(fieldName)) {
+          if(!variables.data){
+            variables.data = {};
+          }
           variables.data[fieldName] = value;
         }
       });
