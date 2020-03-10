@@ -8,11 +8,10 @@ export const product = {
       status
       createdAt
       updatedAt
-      title
       titleFR: title(locale: FR)
       titleEN: title(locale: EN)
-      #        description: description(locale: FR)
-      #        descriptionFR: description(locale: FR)
+      descriptionFR: description(locale: FR)
+      descriptionEN: description(locale: EN)
       price
       customer {
         id
