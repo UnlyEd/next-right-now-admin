@@ -6,42 +6,23 @@ import { InMemoryCache } from 'apollo-cache-inmemory';
 import ApolloClient from 'apollo-client';
 import { setContext } from 'apollo-link-context';
 import { createHttpLink } from 'apollo-link-http';
-import get from 'lodash.get';
-import buildGraphQLProvider, { buildQuery } from 'ra-data-graphql-prisma';
+import buildGraphQLProvider, { buildQuery } from '@unly/ra-data-graphql-prisma';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars,no-unused-vars
 import React, { Component } from 'react';
 import { Admin, Resource } from 'react-admin';
 
-import { ProductEdit } from '../components/admin/ProductEdit';
-import { ProductList } from '../components/admin/ProductList';
+import ProductCreate from '../components/admin/ProductCreate';
+import ProductEdit from '../components/admin/ProductEdit';
+import ProductList from '../components/admin/ProductList';
 import Head from '../components/Head';
 import Loader from '../components/Loader';
-import overriddenQueries from '../queries';
 import { GraphQLDataProvider } from '../types/GraphQLDataProvider';
+import { enhanceBuildQuery } from '../utils/graphcms';
 
 const fileLabel = 'pages/index';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars
   label: fileLabel,
 });
-
-const enhanceBuildQuery = (buildQuery) => (introspectionResults) => (
-  fetchType,
-  resourceName,
-  params,
-) => {
-  const fragment = get(overriddenQueries, `${resourceName}.${fetchType}`);
-  console.log('fragment', fragment);
-  console.log('fetchType', fetchType);
-  console.log('resourceName', resourceName);
-  console.log('params', params);
-
-  return buildQuery(introspectionResults)(
-    fetchType,
-    resourceName,
-    params,
-    fragment,
-  );
-};
 
 class Home extends Component<{}, {
   dataProvider: GraphQLDataProvider;
@@ -76,9 +57,11 @@ class Home extends Component<{}, {
     });
 
     const dataProvider = await buildGraphQLProvider({
+      // @ts-ignore
       client,
       // @ts-ignore
       buildQuery: enhanceBuildQuery(buildQuery),
+      debug: true,
     });
     this.setState({
       dataProvider,
@@ -110,7 +93,7 @@ class Home extends Component<{}, {
               title="Next Right Now - Admin"
               dataProvider={dataProvider}
             >
-              <Resource name="Product" list={ProductList} edit={ProductEdit} />
+              <Resource name="Product" list={ProductList} edit={ProductEdit} create={ProductCreate} />
             </Admin>
           </>
         )}

@@ -3,13 +3,20 @@
 [![Test Coverage](https://api.codeclimate.com/v1/badges/8cb455deab217c839afc/test_coverage)](https://codeclimate.com/github/UnlyEd/next-right-now-admin/test_coverage)
 
 > # Status: **DRAFT/WIP** - Do not use in production, subject to massive changes anytime
+>
+> ### Want to contribute?
+>
+> 1. Check our [roadmap](https://github.com/UnlyEd/next-right-now-admin/projects) to get an overview of what we want to build with NRN-Admin
+> 1. Check what's left to do for [v1 release](https://github.com/UnlyEd/next-right-now-admin/projects/1)
+> 1. Check our [Community open discussion for v1](https://github.com/UnlyEd/next-right-now-admin/issues/15) and share your thoughts, questions, etc.
+> 1. [Check open issues for v1](https://github.com/UnlyEd/next-right-now-admin/milestone/1) and let us know what you'd like to work on.
+>   Make sure you understand the specs properly before starting, don't hesitate to ask for clarifications if unclear.
+>
 
 Next Right Now Admin
 ===
 
 > Next Right Now Admin is a boilerplate to quickly build an Admin frontend, based on [NRN](https://github.com/UnlyEd/next-right-now) and [react-admin](https://github.com/marmelab/react-admin)
->
-> We are also considering using [`@api-platform/admin`](https://github.com/api-platform/admin) which offers **huge benefits** on top of `react-admin` (but we're stuck so far with https://github.com/api-platform/admin/issues/281, [see PR](https://github.com/UnlyEd/next-right-now-admin/pull/1))
 
 # Benefits
 
@@ -37,17 +44,6 @@ Next Right Now Admin
     * Can connect to multiple backends
     * Can be included in another React app
     * Inspired by the popular [ng-admin](https://github.com/marmelab/ng-admin) library (also by marmelab)
-- See [API Platform features](https://github.com/api-platform/admin#features)
-    * Automatically generate an admin interface for all the resources of the API thanks to hypermedia features of Hydra
-    * Generate list, create, show, edit screens as well as a delete button
-    * Generate suitable inputs and fields according to the API doc (e.g. number HTML input for numbers, checkbox for booleans, selectbox for relationships...)
-    * Generate suitable inputs and fields according to Schema.org types if available (e.g. email field for http://schema.org/email)
-    * Handle relationships
-    * Pagination support
-    * Automatically validate if a field is mandatory client-side according to the API description
-    * Send proper HTTP requests to the API and decode them using Hydra and JSON-LD formats
-    * Nicely display server-side errors (e.g. advanced validation)
-    * **100% customizable**
 - See [NRN benefits](https://github.com/UnlyEd/next-right-now#benefits)
     - **B2B multi-tenants** (AKA **"monorepo"**) first-class support (optional, **advanced use-case**)
       - Supports configuration, deployment, testing, monitoring of multiple customers through the same project (identical code base, monorepo design)
@@ -229,7 +225,9 @@ The stage changes the behaviour of the application, because we sometimes need th
 
 # I18n (Internationalization)
 
-TODO
+
+- Admin platform i18n - See https://marmelab.com/react-admin/Translation.html
+- Content i18n - TODO
 
 ---
 

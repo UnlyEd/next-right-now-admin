@@ -6,6 +6,8 @@ export const asset = {
     fragment assetFields on Asset {
       id
       url
+      height
+      width
       mimeType
     }
   `,

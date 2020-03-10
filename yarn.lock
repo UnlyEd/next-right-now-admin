@@ -1752,6 +1752,11 @@
     "@types/keygrip" "*"
     "@types/node" "*"
 
+"@types/deep-diff@1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@types/deep-diff/-/deep-diff-1.0.0.tgz#7eba3202a99b3a207f758f351f7f86387269fc40"
+  integrity sha512-ENsJcujGbCU/oXhDfQ12mSo/mCBWodT2tpARZKmatoSrf8+cGRCPi0KVj3I0FORhYZfLXkewXu7AoIWqiBLkNw==
+
 "@types/eslint-visitor-keys@^1.0.0":
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/@types/eslint-visitor-keys/-/eslint-visitor-keys-1.0.0.tgz#1ee30d79544ca84d68d4b3cdb0af4f205663dd2d"
@@ -1821,6 +1826,13 @@
   version "4.5.6"
   resolved "https://registry.yarnpkg.com/@types/lodash.clonedeep/-/lodash.clonedeep-4.5.6.tgz#3b6c40a0affe0799a2ce823b440a6cf33571d32b"
   integrity sha512-cE1jYr2dEg1wBImvXlNtp0xDoS79rfEdGozQVgliDZj1uERH4k+rmEMTudP9b4VQ8O6nRb5gPqft0QzEQGMQgA==
+  dependencies:
+    "@types/lodash" "*"
+
+"@types/lodash.endswith@4.2.6":
+  version "4.2.6"
+  resolved "https://registry.yarnpkg.com/@types/lodash.endswith/-/lodash.endswith-4.2.6.tgz#5cd271f78dde0ce3aa64d93e654dafe7939e19fa"
+  integrity sha512-QLSXJVZxXHDpiVH0tOzQXMWdiOjJYUE/p1K3sys+l03KUToAjIITRHc5drLkLHki2ezMXVSCWyu/BXPuS3spWw==
   dependencies:
     "@types/lodash" "*"
 
@@ -2066,6 +2078,16 @@
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/@unly/iso3166-1/-/iso3166-1-1.0.2.tgz#ef1504b4aa6e618b800c14a77261a6c5e9449fa0"
   integrity sha512-aL/7cmcfjpwOaKFr9XHcWP/Z7lQjKLm5NMcjncT96aeSJxfblmPLnH/8lnX0GrWWFA2/CseCxnA73u5eiZcClA==
+
+"@unly/ra-data-graphql-prisma@1.0.0-beta.2":
+  version "1.0.0-beta.2"
+  resolved "https://registry.yarnpkg.com/@unly/ra-data-graphql-prisma/-/ra-data-graphql-prisma-1.0.0-beta.2.tgz#cc2f2239f1bce40483620780df369a67f02bf956"
+  integrity sha512-PYmc3Ax/Fvd128ySzVwB/tia24M+GGWr9J6WSHpeyEyL0YOWR7ucDzC8w6OMvnePKTIUXnRmD8vlQmCpg7IMtQ==
+  dependencies:
+    graphql-tag "2.9.2"
+    lodash "4.17.10"
+    pluralize "7.0.0"
+    ra-data-graphql "2.3.0"
 
 "@unly/universal-language-detector@2.0.3":
   version "2.0.3"
@@ -2507,7 +2529,7 @@ apollo-cache@1.3.4, apollo-cache@^1.3.4:
     apollo-utilities "^1.3.3"
     tslib "^1.10.0"
 
-apollo-client-preset@^1.0.8:
+apollo-client-preset@^1.0.6:
   version "1.0.8"
   resolved "https://registry.yarnpkg.com/apollo-client-preset/-/apollo-client-preset-1.0.8.tgz#23bd7176849d0d815f12c648774d009b258a449e"
   integrity sha512-vRrdBfoOBkSboUmkec/zDWK9dT22GoZ2NgTKxfPXaTRh82HGDejDAblMr7BuDtZQ6zxMUiD9kghmO+3HXsHKdQ==
@@ -2518,7 +2540,7 @@ apollo-client-preset@^1.0.8:
     apollo-link-http "^1.3.1"
     graphql-tag "^2.4.2"
 
-apollo-client@2.6.8, apollo-client@^2.2.2, apollo-client@^2.5.1, apollo-client@^2.6.7:
+apollo-client@2.6.8, apollo-client@^2.2.2, apollo-client@^2.2.8, apollo-client@^2.6.7:
   version "2.6.8"
   resolved "https://registry.yarnpkg.com/apollo-client/-/apollo-client-2.6.8.tgz#01cebc18692abf90c6b3806414e081696b0fa537"
   integrity sha512-0zvJtAcONiozpa5z5zgou83iEKkBaXhhSSXJebFHRXs100SecDojyUWKjwTtBPn9HbM6o5xrvC5mo9VQ5fgAjw==
@@ -4311,6 +4333,11 @@ decode-uri-component@^0.2.0:
   resolved "https://registry.yarnpkg.com/decode-uri-component/-/decode-uri-component-0.2.0.tgz#eb3913333458775cb84cd1a1fae062106bb87545"
   integrity sha1-6zkTMzRYd1y4TNGh+uBiEGu4dUU=
 
+deep-diff@1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/deep-diff/-/deep-diff-1.0.2.tgz#afd3d1f749115be965e89c63edc7abb1506b9c26"
+  integrity sha512-aWS3UIVH+NPGCD1kki+DCU9Dua032iSsO43LqQpcs4R3+dVv7tX0qBGjiVHJHjplsoUM2XRO/KB92glqc68awg==
+
 deep-is@~0.1.3:
   version "0.1.3"
   resolved "https://registry.yarnpkg.com/deep-is/-/deep-is-0.1.3.tgz#b369d6fb5dbc13eecf524f91b070feedc357cf34"
@@ -5678,7 +5705,12 @@ graphql-tag@2.10.2:
   resolved "https://registry.yarnpkg.com/graphql-tag/-/graphql-tag-2.10.2.tgz#e42214d0dde29e8db5d55b0107efdb2d461ed270"
   integrity sha512-7rUuJkVGyedBiVJ/hPaxndDnzxANUZ+QhTu0KUzgTGtP3ibY/hSUl9em21aVh5BNMJsmMc4nVuOTBoiAUJ2xBQ==
 
-graphql-tag@^2.10.1, graphql-tag@^2.4.2, graphql-tag@^2.6.1:
+graphql-tag@2.9.2:
+  version "2.9.2"
+  resolved "https://registry.yarnpkg.com/graphql-tag/-/graphql-tag-2.9.2.tgz#2f60a5a981375f430bf1e6e95992427dc18af686"
+  integrity sha512-qnNmof9pAqj/LUzs3lStP0Gw1qhdVCUS7Ab7+SUB6KD5aX1uqxWQRwMnOGTkhKuLvLNIs1TvNz+iS9kUGl1MhA==
+
+graphql-tag@^2.4.2, graphql-tag@^2.6.1:
   version "2.10.3"
   resolved "https://registry.yarnpkg.com/graphql-tag/-/graphql-tag-2.10.3.tgz#ea1baba5eb8fc6339e4c4cf049dabe522b0edf03"
   integrity sha512-4FOv3ZKfA4WdOKJeHdz6B3F/vxBLSgmBcGeAFPf4n1F64ltJUvOOerNj0rsJxONQGdhUMynQIvd6LzB+1J5oKA==
@@ -7406,6 +7438,11 @@ lodash.debounce@^4.0.8:
   resolved "https://registry.yarnpkg.com/lodash.debounce/-/lodash.debounce-4.0.8.tgz#82d79bff30a67c4005ffd5e2515300ad9ca4d7af"
   integrity sha1-gteb/zCmfEAF/9XiUVMArZyk168=
 
+lodash.endswith@4.2.1:
+  version "4.2.1"
+  resolved "https://registry.yarnpkg.com/lodash.endswith/-/lodash.endswith-4.2.1.tgz#fed59ac1738ed3e236edd7064ec456448b37bc09"
+  integrity sha1-/tWawXOO0+I27dcGTsRWRIs3vAk=
+
 lodash.find@4.6.0:
   version "4.6.0"
   resolved "https://registry.yarnpkg.com/lodash.find/-/lodash.find-4.6.0.tgz#cb0704d47ab71789ffa0de8b97dd926fb88b13b1"
@@ -7495,6 +7532,11 @@ lodash.xorby@4.7.0:
   version "4.7.0"
   resolved "https://registry.yarnpkg.com/lodash.xorby/-/lodash.xorby-4.7.0.tgz#9c19a6f9f063a6eb53dd03c1b6871799801463d7"
   integrity sha1-nBmm+fBjputT3QPBtocXmYAUY9c=
+
+lodash@4.17.10:
+  version "4.17.10"
+  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.10.tgz#1b7793cf7259ea38fb3661d4d38b3260af8ae4e7"
+  integrity sha512-UejweD1pDoXu+AD825lWwp4ZGtSwgnpZxb3JDViD7StjQz+Nb/6l093lx4OQ0foGWNRoc19mWy7BzL+UAK2iVg==
 
 lodash@4.17.15, lodash@^4.17.10, lodash@^4.17.11, lodash@^4.17.13, lodash@^4.17.14, lodash@^4.17.15, lodash@^4.17.4, lodash@~4.17.5:
   version "4.17.15"
@@ -8759,7 +8801,7 @@ pkg-up@^3.0.1:
   dependencies:
     find-up "^3.0.0"
 
-pluralize@^7.0.0, pluralize@~7.0.0:
+pluralize@7.0.0, pluralize@~7.0.0:
   version "7.0.0"
   resolved "https://registry.yarnpkg.com/pluralize/-/pluralize-7.0.0.tgz#298b89df8b93b0221dbf421ad2b1b1ea23fc6777"
   integrity sha512-ARhBOdzS3e41FbkW/XWrTEtukqqLoK5+Z/4UeDaLuSW+39JPeFgs4gCGqsrJHVZX0fUrx//4OF0K1CUGwlIFow==
@@ -9429,24 +9471,14 @@ ra-core@^3.2.4:
     recompose "~0.26.0"
     reselect "~3.0.0"
 
-ra-data-graphql-prisma@0.0.10:
-  version "0.0.10"
-  resolved "https://registry.yarnpkg.com/ra-data-graphql-prisma/-/ra-data-graphql-prisma-0.0.10.tgz#687dbcfa9f4ba61754f1daac6521dc9d16fca14a"
-  integrity sha512-GPaTVrCoO8bRVsRe8tC/j49TUoftndPu7gF30TflNrtfH5rkk55hs2Qy3VNoZzHGNLb1J5ul6bHuyFhNKlsUUQ==
+ra-data-graphql@2.3.0:
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/ra-data-graphql/-/ra-data-graphql-2.3.0.tgz#49cdad50bd6d98fd1ffe34aa196a3846ba424591"
+  integrity sha512-ASPamJYkl159LoYcyCbEuZ+W4/lssVCNfWfMp5FgLmkqrPBVCi5Kkf90I8cH+EktxBWtvrfjZmk5rJhlkNnd+g==
   dependencies:
+    apollo-client "^2.2.8"
+    apollo-client-preset "^1.0.6"
     graphql-tag "^2.6.1"
-    lodash "~4.17.5"
-    pluralize "^7.0.0"
-    ra-data-graphql "^2.3.0"
-
-ra-data-graphql@^2.3.0:
-  version "2.9.8"
-  resolved "https://registry.yarnpkg.com/ra-data-graphql/-/ra-data-graphql-2.9.8.tgz#34aa8d1fc5f2437c6af387993d050e6cb8c7645b"
-  integrity sha512-ghoDZQrvBKv/JzEj9zOc91aqHgUwTJUP1Ms+tVVOhvp4sqoNpETVdzVe4QZv8GNL5Sxiu69B9UrGH+fjIcIr3w==
-  dependencies:
-    apollo-client "^2.5.1"
-    apollo-client-preset "^1.0.8"
-    graphql-tag "^2.10.1"
     lodash "~4.17.5"
     pluralize "~7.0.0"
 

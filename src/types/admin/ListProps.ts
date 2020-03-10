@@ -1,24 +1,80 @@
 import React from 'react';
 
+type Sort = {
+  field: string; // Default: 'id'
+  order: string; // Default: 'ASC'
+}
+
 /**
- * TODO All "any" types are unknown
+ * React Admin List component props
+ *
+ * Some of those props are manipulable, other aren't meant to
+ * See https://github.com/marmelab/react-admin/blob/master/packages/ra-ui-materialui/src/list/List.js#L70
+ *
+ * Difference between React.ReactNode and JSX.Element is that React.ReactNode accepts null
+ * We use JSX.Element when the prop cannot be null
  *
  * See https://marmelab.com/react-admin/List.html
  */
 export type ListProps = {
-  title: string | React.ReactNode;
   actions: React.ReactNode; // TODO should use ListActionProps as props
-  exporter: any | boolean; // You can hide ExportButton if exporter = (null || false)
-  bulkActionButtons: any;
-  filters: React.ReactNode;
-  perPage: number; // Default: 10
-  sort: {
-    field: string; // Default: 'id'
-    order: string; // Default: 'ASC'
-  };
-  filter: object; // Example: { is_published: true }
-  filterDefaultValues: any;
-  pagination: any;
   aside: React.ReactNode; // To display additional information on the side of the list
-  empty: any;
+  basePath: string;
+  bulkActionButtons: React.ReactNode | string;
+  children: JSX.Element;
+  className: string;
+  classes: object;
+  component: JSX.Element; // Wrapper component, defaults to @material-ui/core/Card  - See https://github.com/marmelab/react-admin/blob/master/packages/ra-ui-materialui/src/list/List.js#L241
+  currentSort: Sort;
+  data: {
+    [key: string]: any;
+  };
+  defaultTitle: string;
+  displayedFilters: {
+    [key: string]: any;
+  };
+  empty: React.ReactNode; // Component to render when no records to display
+  exporter: Function | boolean; // You can hide ExportButton if exporter = (null || false)
+  filterDefaultValues: {
+    [key: string]: any;
+  };
+  filter: { // The permanent filter to apply to the query - Example: { is_published: true }
+    // Default: {}
+    [key: string]: any;
+  };
+  filters: React.ReactNode; // A React component used to display the filter form
+  filterValues: {
+    [key: string]: any;
+  };
+  hasCreate: boolean;
+  hasEdit: boolean;
+  hasList: boolean;
+  hasShow: boolean;
+  ids: string[];
+  loading: boolean;
+  match: {
+    path: string;
+    url: string;
+    isExact: boolean;
+    params: object;
+  };
+  onSelect: Function;
+  onToggleItem: Function;
+  onUnselectItems: Function;
+  options: {
+    label: string;
+  };
+  page: number;
+  pagination: React.ReactNode | boolean;
+  perPage: number; // Default: 10
+  refresh: Function;
+  resource: string;
+  selectedIds: string[];
+  setFilters: Function;
+  setPage: Function;
+  setPerPage: Function;
+  setSort: Function;
+  showFilter: Function;
+  sort: Sort;
+  title: string | React.ReactNode; // See https://github.com/marmelab/react-admin/blob/master/packages/ra-ui-materialui/src/layout/Title.js#L29
 };

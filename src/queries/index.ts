@@ -1,19 +1,9 @@
-import { GET_LIST } from 'react-admin';
-import gql from 'graphql-tag';
+import { GET_LIST, GET_ONE } from 'react-admin';
+import { product } from '../gql/fragments/product';
 
 export default {
   Product: {
-    [GET_LIST]: gql`
-      fragment product on Product {
-        id
-        title: title(locale: FR)
-#        description: description(locale: FR)
-#        descriptionFR: description(locale: FR) XXX Using this makes the ra-data-opencru/getResponseParser crash when reading "field.type", because "field" doesn't match any known field and thus has no "type" prop
-        price
-        customer {
-          label
-        }
-      }
-    `
+    [GET_LIST]: product.productFields,
+    [GET_ONE]: product.productFields,
   },
 };
