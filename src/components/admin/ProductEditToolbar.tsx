@@ -14,7 +14,7 @@ const ProductEditToolbar = (props) => {
       {
         record.status === 'PUBLISHED' && (
           <div>
-            <a href={'https://nrn-customer1.now.sh/'}>Published content</a> has been restricted (because we use them to showcase <a href={'https://github.com/UnlyEd/next-right-now'}>NRN</a>) - Create your own post to play around with it
+            <a href={'https://nrn-customer1.now.sh/'} target={'_blank'}>Published content</a> has been restricted (because we use them to showcase <a href={'https://github.com/UnlyEd/next-right-now'} target={'_blank'}>NRN</a>) - Create your own products to play around with it
           </div>
         )
       }
