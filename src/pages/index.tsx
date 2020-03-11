@@ -1,19 +1,15 @@
 /** @jsx jsx */
 import { Amplitude, LogOnMount } from '@amplitude/react-amplitude';
 import { jsx } from '@emotion/core';
+import buildGraphQLProvider, { buildQuery } from '@unly/ra-data-graphql-prisma';
 import { createLogger } from '@unly/utils-simple-logger';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import ApolloClient from 'apollo-client';
 import { setContext } from 'apollo-link-context';
 import { createHttpLink } from 'apollo-link-http';
-import buildGraphQLProvider, { buildQuery } from '@unly/ra-data-graphql-prisma';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars,no-unused-vars
 import React, { Component } from 'react';
-import { Admin, Resource } from 'react-admin';
-
-import ProductCreate from '../components/admin/ProductCreate';
-import ProductEdit from '../components/admin/ProductEdit';
-import ProductList from '../components/admin/ProductList';
+import AdminContainer from '../components/admin/AdminContainer';
 import Head from '../components/Head';
 import Loader from '../components/Loader';
 import { GraphQLDataProvider } from '../types/GraphQLDataProvider';
@@ -87,12 +83,8 @@ class Home extends Component<{}, {
           <>
             <LogOnMount eventType="page-displayed" />
             <Head />
-            <Admin
-              title="Next Right Now - Admin"
-              dataProvider={dataProvider}
-            >
-              <Resource name="Product" list={ProductList} edit={ProductEdit} create={ProductCreate} />
-            </Admin>
+
+            <AdminContainer dataProvider={dataProvider} />
           </>
         )}
       </Amplitude>
