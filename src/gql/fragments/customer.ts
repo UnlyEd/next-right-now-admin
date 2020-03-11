@@ -11,6 +11,12 @@ export const customer = {
       ref
       labelFR: label(locale: FR)
       labelEN: label(locale: EN)
+      termsEN: terms(locale: EN) {
+        html
+      }
+      termsFR: terms(locale: FR) {
+        html
+      }
     }
   `,
 };
