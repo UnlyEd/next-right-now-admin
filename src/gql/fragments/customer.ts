@@ -17,6 +17,17 @@ export const customer = {
       termsFR: terms(locale: FR) {
         html
       }
+      theme {
+        id
+        logo {
+          id
+          url
+          height
+          width
+          fileName
+        }
+        primaryColor
+      }
     }
   `,
 };
