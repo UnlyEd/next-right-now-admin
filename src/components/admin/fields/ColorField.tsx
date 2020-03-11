@@ -7,17 +7,17 @@ const ColorField = (props: Props) => {
 
   return (
     <span>
-      {get(record, source)}
       <div
         style={{
           backgroundColor: get(record, source),
           width: 15,
           height: 15,
-          marginLeft: 5,
+          marginRight: 5,
           border: '1px solid rgba(0, 0, 0, .2)',
           display: 'inline-block',
         }}
       />
+      {get(record, source)}
     </span>
   );
 };
