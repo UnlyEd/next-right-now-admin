@@ -1,3 +1,4 @@
+import { IntrospectionResult } from '@unly/ra-data-graphql-prisma/lib/constants/interfaces';
 import { diff, DiffEdit } from 'deep-diff';
 import { FieldNode, IntrospectionField } from 'graphql';
 import { print } from 'graphql/language/printer';
@@ -5,7 +6,6 @@ import endsWith from 'lodash.endswith';
 import get from 'lodash.get';
 import includes from 'lodash.includes';
 import map from 'lodash.map';
-import { IntrospectionResult } from '@unly/ra-data-graphql-prisma/lib/constants/interfaces';
 import { CREATE, UPDATE } from 'react-admin';
 
 import overriddenQueries from '../queries';
@@ -195,7 +195,7 @@ export const enhanceBuildQuery = (buildQuery) => (introspectionResults: Introspe
       // Add i18n data back, because they were removed by the query builder (because they didn't match any known field)
       map(params.data, (value: any, fieldName: string) => {
         if (isLocalisedField(fieldName)) {
-          if(!variables.data){
+          if (!variables.data) {
             variables.data = {};
           }
           variables.data[fieldName] = value;

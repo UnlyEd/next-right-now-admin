@@ -9,7 +9,9 @@ const ProductEdit = (props): JSX.Element => {
     <Edit {...props}>
       {/* XXX Using custom toolbar breaks updates because props get injected to the DOM instead of being passed down to children, somehow*/}
       {/*<SimpleForm toolbar={<ProductEditToolbar />}>*/}
-      <SimpleForm>
+      <SimpleForm
+        redirect={false}
+      >
         <ArrayInput source="images">
           <SimpleFormIterator>
             <ImageField source="url" label="Image" title="fileName" />
