@@ -57,11 +57,9 @@ class Home extends Component<{}, {
     });
 
     const dataProvider = await buildGraphQLProvider({
-      // @ts-ignore
       client,
-      // @ts-ignore
       buildQuery: enhanceBuildQuery(buildQuery),
-      debug: true,
+      debug: process.env.APP_STAGE !== 'production',
     });
     this.setState({
       dataProvider,

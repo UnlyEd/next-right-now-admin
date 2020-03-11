@@ -44,7 +44,7 @@
     "@emotion/styled": "10.0.27",
     "@sentry/browser": "5.12.1",
     "@sentry/node": "5.12.3",
-    "@unly/ra-data-graphql-prisma": "1.0.0-beta.2",
+    "@unly/ra-data-graphql-prisma": "1.0.0-beta.3",
     "@unly/universal-language-detector": "2.0.3",
     "@unly/utils": "1.0.3",
     "@unly/utils-simple-logger": "1.4.0",
