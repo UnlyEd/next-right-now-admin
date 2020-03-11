@@ -1,6 +1,7 @@
 import React from 'react';
 import { Datagrid, List, TextField } from 'react-admin';
 import { ListProps } from '../../types/admin/ListProps';
+import CustomerBulkActionButtons from './CustomerBulkActionButtons';
 
 const CustomerList = (props: ListProps): JSX.Element => {
   console.log('CustomerList.props', props);
@@ -11,6 +12,7 @@ const CustomerList = (props: ListProps): JSX.Element => {
         field: 'labelEN',
         order: 'DESC',
       }}
+      bulkActionButtons={<CustomerBulkActionButtons />}
     >
       <Datagrid rowClick="edit">
         <TextField source="ref" label={'Reference (#)'} />
