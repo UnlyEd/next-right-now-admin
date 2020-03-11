@@ -85,7 +85,7 @@ jobs:
         # We need to set env the url for next step, formatted as `https://${url provided by API}`
         run: |
           apt update -y >/dev/null && apt install -y jq >/dev/null
-          ZEIT_DEPLOYMENT=`curl -H 'Accept: application/json' -H 'Content-Type: application/json' -H 'Authorization: Bearer ${{ secrets.ZEIT_TOKEN }}' https://api.zeit.co/v11/now/deployments/get?url=$(cat now.json | jq -r '.name')-${CURRENT_BRANCH##*/}.now.sh | jq '.url' | tr -d \"`
+          ZEIT_DEPLOYMENT=`curl -H 'Accept: application/json' -H 'Content-Type: application/json' -H 'Authorization: Bearer ${{ secrets.ZEIT_TOKEN }}' https://api.zeit.co/v5/now/deployments?projectId=$(cat now.json | jq -r '.name')&teamId=$(cat now.json | jq -r '.scope') | jq '.deployments [0].url' | tr -d \"`
           echo "::set-env name=ZEIT_DEPLOYMENT_URL::https://$ZEIT_DEPLOYMENT"
         env:
           ZEIT_TOKEN: ${{ secrets.ZEIT_TOKEN }} # Passing github's secret to the worker
