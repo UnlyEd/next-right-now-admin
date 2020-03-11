@@ -1,5 +1,6 @@
 import React from 'react';
 import { Admin, Resource } from 'react-admin';
+import { NRN_DEFAULT_SERVICE_LABEL } from '../../constants';
 import CustomerList from './CustomerList';
 
 import ProductCreate from './ProductCreate';
@@ -11,7 +12,7 @@ const AdminContainer = (props: Props): JSX.Element => {
 
   return (
     <Admin
-      title="Next Right Now - Admin"
+      title={NRN_DEFAULT_SERVICE_LABEL}
       dataProvider={dataProvider}
     >
       <Resource name="Customer" list={CustomerList} />
