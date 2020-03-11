@@ -68,20 +68,20 @@ export const getLocalisedFieldAlias = (fieldName: string): string => {
  * See https://github.com/marcantoine/@unly/ra-data-graphql-prisma/pull/12#issuecomment-596074907
  *
  * @param field
- * @param key Field name
- * @param acc Accumulator
- * @param introspectionResults
+ * @param fieldName
+ * @param acc Accumulator (other fields)
+ * @param introspectionResults GraphQL introspection results
  */
 export const fieldAliasResolver = (
   field: IntrospectionField,
-  key: string,
+  fieldName: string,
   acc: FieldNode[],
   introspectionResults: IntrospectionResult,
 ): string => {
-  if (isLocalisedField(key)) {
-    return getLocalisedFieldAlias(key);
+  if (isLocalisedField(fieldName)) {
+    return getLocalisedFieldAlias(fieldName);
   }
-  return key;
+  return fieldName;
 };
 
 /**
@@ -187,25 +187,6 @@ export const enhanceBuildQuery = (buildQuery) => (introspectionResults: Introspe
     fragment,
   );
   const { query, variables } = builtQuery;
-
-  // Step 2 - Sanitize data so that the executed query/mutation contains the expected variables
-  switch (fetchType) {
-    case UPDATE:
-    case CREATE:
-      // Add i18n data back, because they were removed by the query builder (because they didn't match any known field)
-      map(params.data, (value: any, fieldName: string) => {
-        if (isLocalisedField(fieldName)) {
-          if (!variables.data) {
-            variables.data = {};
-          }
-          variables.data[fieldName] = value;
-        }
-      });
-
-      break;
-    default:
-      break;
-  }
 
   console.log('builtQuery', builtQuery);
   console.debug(print(query), '- Variables:', variables, ' using params:', params);
