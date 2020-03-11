@@ -48,7 +48,7 @@ jobs:
         env:
           ZEIT_TOKEN: ${{ secrets.ZEIT_TOKEN }} # Passing github's secret to the worker
           CURRENT_BRANCH: ${{ github.ref }} # Passing current branch to worker
-      - name: Upload Zeit config file
+      - name: Upload Zeit config file # Provide project configuration for other steps using artifact: https://help.github.com/en/actions/configuring-and-managing-workflows/persisting-workflow-data-using-artifacts
         uses: actions/upload-artifact@v1
         with:
           name: zeitProjectConfig
@@ -87,6 +87,7 @@ jobs:
         uses: actions/download-artifact@v1
         with:
           name: zeitProjectConfig
+          path: .now/project.json
       - name: Resolving deployment url from Zeit
         # The following workflow is:
         #  - getting all deployments data (by using the scope in `now.json`)
