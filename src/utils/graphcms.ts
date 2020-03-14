@@ -10,6 +10,7 @@ import { CREATE, UPDATE } from 'react-admin';
 
 import overriddenQueries from '../queries';
 import { BuiltQuery } from '../types/BuiltQuery';
+import { arrayToNestedObject } from './arrays';
 import { Record } from './record';
 
 /**
@@ -78,6 +79,7 @@ export const fieldAliasResolver = (
   acc: FieldNode[],
   introspectionResults: IntrospectionResult,
 ): string => {
+  console.debug('introspectionResults', introspectionResults);
   if (isLocalisedField(fieldName)) {
     return getLocalisedFieldAlias(fieldName);
   }
@@ -94,23 +96,20 @@ export const fieldAliasResolver = (
  * @param previousData
  */
 export const sanitizeMutationUpdateData = (data: Record, previousData: Record): object => {
-  const sanitizedData = {
+  let sanitizedData = {
     id: data.id, // The id is required to be converted to a WHERE statement by the query builder
   };
-
-  // Always remove createdAt, updatedAt because they shouldn't be updated
-  const blackListedFields = [
-    'createdAt',
-    'updatedAt',
-  ];
 
   const changes = diff(previousData, data);
 
   map(changes, (change: DiffEdit<object>) => {
-    const fieldName: string = change.path[0];
+    if (change.kind === 'E') { // Ignoring diff other than Edit (E)
+      const field = arrayToNestedObject(change.path, change.rhs);
 
-    if (!includes(blackListedFields, fieldName)) {
-      sanitizedData[fieldName] = change.rhs;
+      sanitizedData = {
+        ...sanitizedData,
+        ...field,
+      };
     }
   });
 
@@ -127,7 +126,6 @@ export const sanitizeMutationCreateData = (data: Record): object => {
   ];
 
   map(data, (value, fieldName) => {
-    console.log('fieldName', fieldName);
     if (!includes(blackListedFields, fieldName)) {
       sanitizedData[fieldName] = value;
     }
