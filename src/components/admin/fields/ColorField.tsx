@@ -3,7 +3,8 @@ import React from 'react';
 import { Record } from '../../../utils/record';
 
 const ColorField = (props: Props) => {
-  const { record = {}, source } = props;
+  const { record = {}, source, displayValue = true } = props;
+  const value: string = get(record, source);
 
   return (
     <span>
@@ -17,7 +18,11 @@ const ColorField = (props: Props) => {
           display: 'inline-block',
         }}
       />
-      {get(record, source)}
+      {
+        displayValue && (
+          { value }
+        )
+      }
     </span>
   );
 };
@@ -26,6 +31,7 @@ type Props = {
   source: string;
   record?: Record;
   label?: string;
+  displayValue?: boolean;
 }
 
 export default ColorField;
