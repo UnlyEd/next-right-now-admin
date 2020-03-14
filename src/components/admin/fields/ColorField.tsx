@@ -20,7 +20,9 @@ const ColorField = (props: Props) => {
       />
       {
         displayValue && (
-          { value }
+          <>
+            {value}
+          </>
         )
       }
     </span>
