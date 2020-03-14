@@ -36,7 +36,6 @@ const ColorInput = (props: Props) => {
           source={source}
           record={record}
         />
-        {label}
       </div>
       {
         show ? (
