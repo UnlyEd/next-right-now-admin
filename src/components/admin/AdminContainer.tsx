@@ -18,6 +18,7 @@ const AdminContainer = (props: Props): JSX.Element => {
     >
       <Resource name="Customer" list={CustomerList} edit={CustomerEdit} />
       <Resource name="Product" list={ProductList} edit={ProductEdit} create={ProductCreate} />
+      <Resource name="Theme" />
     </Admin>
   );
 };

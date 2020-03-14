@@ -18,7 +18,7 @@ const ColorInput = (props: Props) => {
     record,
   } = props;
   const Picker = ReactColor[`${picker}Picker`];
-  console.log('record', record)
+  console.debug('ColorInput - record', record);
 
   const {
     input: { name, onChange },
