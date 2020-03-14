@@ -1,6 +1,7 @@
 import { GET_LIST, GET_ONE } from 'react-admin';
 import { customer } from '../gql/fragments/customer';
 import { product } from '../gql/fragments/product';
+import { theme } from '../gql/fragments/theme';
 
 export default {
   Customer: {
@@ -10,5 +11,8 @@ export default {
   Product: {
     [GET_LIST]: product.productFields,
     [GET_ONE]: product.productFields,
+  },
+  Theme: {
+    [GET_LIST]: theme.themeFields,
   },
 };

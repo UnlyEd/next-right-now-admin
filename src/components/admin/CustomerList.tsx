@@ -2,6 +2,7 @@ import React from 'react';
 import { Datagrid, List, TextField } from 'react-admin';
 import { ListProps } from '../../types/admin/ListProps';
 import CustomerBulkActionButtons from './CustomerBulkActionButtons';
+import ColorField from './fields/ColorField';
 
 const CustomerList = (props: ListProps): JSX.Element => {
   console.log('CustomerList.props', props);
@@ -18,6 +19,7 @@ const CustomerList = (props: ListProps): JSX.Element => {
         <TextField source="ref" label={'Reference (#)'} />
         <TextField source="labelEN" label={'Label (EN)'} />
         <TextField source="labelFR" label={'Label (FR)'} />
+        <ColorField source="theme.primaryColor" label="Color" />
       </Datagrid>
     </List>
   );
