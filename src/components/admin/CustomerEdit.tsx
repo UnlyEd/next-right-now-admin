@@ -5,7 +5,7 @@ import ColorInput from './inputs/ColorInput';
 
 const CustomerEdit = (props): JSX.Element => {
   // Not SSR compatible
-  const RichTextInput = require('ra-input-rich-text');
+  // const RichTextInput = require('ra-input-rich-text');
 
   console.log('customerEdit props', props);
   return (
