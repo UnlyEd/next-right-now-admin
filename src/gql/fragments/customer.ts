@@ -22,6 +22,7 @@ export const customer = {
         logo {
           id
           url
+          title
           height
           width
           fileName
