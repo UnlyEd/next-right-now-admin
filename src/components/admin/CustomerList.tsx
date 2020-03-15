@@ -1,5 +1,5 @@
 import React from 'react';
-import { Datagrid, List, TextField } from 'react-admin';
+import { Datagrid, ImageField, List, TextField } from 'react-admin';
 import { ListProps } from '../../types/admin/ListProps';
 import CustomerBulkActionButtons from './CustomerBulkActionButtons';
 import ColorField from './fields/ColorField';
@@ -17,6 +17,7 @@ const CustomerList = (props: ListProps): JSX.Element => {
     >
       <Datagrid rowClick="edit">
         <TextField source="ref" label={'Reference (#)'} />
+        <ImageField source={'theme.logo.url'} title={'theme.logo.title'} label={'Logo'} />
         <TextField source="labelEN" label={'Label (EN)'} />
         <TextField source="labelFR" label={'Label (FR)'} />
         <ColorField source="theme.primaryColor" label="Color" />

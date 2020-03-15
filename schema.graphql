@@ -38,6 +38,7 @@ type Asset implements Node {
   mimeType: String
   size: Float
   status: Status!
+  title: String
   updatedAt: DateTime!
   "Get the url for the asset with provided transformations applied."
   url(transformation: AssetTransformationInput): String!
@@ -70,6 +71,7 @@ type AssetPreviousValues {
   mimeType: String
   size: Float
   status: Status!
+  title: String
   updatedAt: DateTime!
   width: Float
 }
@@ -309,6 +311,8 @@ enum AssetOrderByInput {
   size_DESC
   status_ASC
   status_DESC
+  title_ASC
+  title_DESC
   updatedAt_ASC
   updatedAt_DESC
   width_ASC
@@ -426,6 +430,7 @@ input AssetCreateInput {
   mimeType: String
   size: Float
   status: Status
+  title: String
   width: Float
 }
 
@@ -449,6 +454,7 @@ input AssetCreateWithoutImagesProductInput {
   mimeType: String
   size: Float
   status: Status
+  title: String
   width: Float
 }
 
@@ -460,6 +466,7 @@ input AssetCreateWithoutLogoThemeInput {
   mimeType: String
   size: Float
   status: Status
+  title: String
   width: Float
 }
 
@@ -631,6 +638,33 @@ input AssetScalarWhereInput {
   status_not: Status
   "All values that are not contained in given list."
   status_not_in: [Status!]
+  title: String
+  "All values containing the given string."
+  title_contains: String
+  "All values ending with the given string."
+  title_ends_with: String
+  "All values greater than the given value."
+  title_gt: String
+  "All values greater than or equal the given value."
+  title_gte: String
+  "All values that are contained in given list."
+  title_in: [String!]
+  "All values less than the given value."
+  title_lt: String
+  "All values less than or equal the given value."
+  title_lte: String
+  "All values that are not equal to given value."
+  title_not: String
+  "All values not containing the given string."
+  title_not_contains: String
+  "All values not ending with the given string."
+  title_not_ends_with: String
+  "All values that are not contained in given list."
+  title_not_in: [String!]
+  "All values not starting with the given string."
+  title_not_starts_with: String
+  "All values starting with the given string."
+  title_starts_with: String
   updatedAt: DateTime
   "All values greater than the given value."
   updatedAt_gt: DateTime
@@ -698,6 +732,7 @@ input AssetUpdateInput {
   mimeType: String
   size: Float
   status: Status
+  title: String
   width: Float
 }
 
@@ -708,6 +743,7 @@ input AssetUpdateManyDataInput {
   mimeType: String
   size: Float
   status: Status
+  title: String
   width: Float
 }
 
@@ -718,6 +754,7 @@ input AssetUpdateManyMutationInput {
   mimeType: String
   size: Float
   status: Status
+  title: String
   width: Float
 }
 
@@ -760,6 +797,7 @@ input AssetUpdateWithoutImagesProductDataInput {
   mimeType: String
   size: Float
   status: Status
+  title: String
   width: Float
 }
 
@@ -771,6 +809,7 @@ input AssetUpdateWithoutLogoThemeDataInput {
   mimeType: String
   size: Float
   status: Status
+  title: String
   width: Float
 }
 
@@ -778,18 +817,21 @@ input AssetUploadInput {
   imagesProduct: ProductCreateManyWithoutImagesInput
   logoTheme: ThemeCreateManyWithoutLogoInput
   status: Status
+  title: String
   url: String!
 }
 
 input AssetUploadWithoutImagesProductInput {
   logoTheme: ThemeCreateManyWithoutLogoInput
   status: Status
+  title: String
   url: String!
 }
 
 input AssetUploadWithoutLogoThemeInput {
   imagesProduct: ProductCreateManyWithoutImagesInput
   status: Status
+  title: String
   url: String!
 }
 
@@ -978,6 +1020,33 @@ input AssetWhereInput {
   status_not: Status
   "All values that are not contained in given list."
   status_not_in: [Status!]
+  title: String
+  "All values containing the given string."
+  title_contains: String
+  "All values ending with the given string."
+  title_ends_with: String
+  "All values greater than the given value."
+  title_gt: String
+  "All values greater than or equal the given value."
+  title_gte: String
+  "All values that are contained in given list."
+  title_in: [String!]
+  "All values less than the given value."
+  title_lt: String
+  "All values less than or equal the given value."
+  title_lte: String
+  "All values that are not equal to given value."
+  title_not: String
+  "All values not containing the given string."
+  title_not_contains: String
+  "All values not ending with the given string."
+  title_not_ends_with: String
+  "All values that are not contained in given list."
+  title_not_in: [String!]
+  "All values not starting with the given string."
+  title_not_starts_with: String
+  "All values starting with the given string."
+  title_starts_with: String
   updatedAt: DateTime
   "All values greater than the given value."
   updatedAt_gt: DateTime
@@ -1916,8 +1985,6 @@ input ProductWhereInput {
 
 input ProductWhereUniqueInput {
   id: ID
-  titleEN: String
-  titleFR: String
 }
 
 input ThemeCreateInput {

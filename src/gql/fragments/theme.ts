@@ -9,6 +9,7 @@ export const theme = {
       logo {
         id
         url
+        title
         height
         width
         fileName
