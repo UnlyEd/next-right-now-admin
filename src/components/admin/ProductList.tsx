@@ -1,5 +1,6 @@
 import React from 'react';
 import { ChipField, Datagrid, ImageField, List, ListController, TextField } from 'react-admin';
+import { ListControllerProps } from '../../types/admin/ListControllerProps';
 import { ListProps } from '../../types/admin/ListProps';
 import ProductBulkActionButtons from './ProductBulkActionButtons';
 
@@ -7,7 +8,7 @@ const ProductList = (props: ListProps): JSX.Element => {
   console.debug('ProductList.props', props);
   return (
     <ListController {...props}>
-      {(controllerProps) => {
+      {(controllerProps: ListControllerProps) => {
         console.debug('ProductList.controllerProps', controllerProps);
         return (
           <List
