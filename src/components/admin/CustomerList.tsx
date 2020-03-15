@@ -14,6 +14,7 @@ const CustomerList = (props: ListProps): JSX.Element => {
         return (
           <List
             {...props}
+            {...controllerProps}
             sort={{
               field: 'labelEN',
               order: 'DESC',
