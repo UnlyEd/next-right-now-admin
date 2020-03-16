@@ -14,6 +14,7 @@ module.exports = withCSS(withSourceMaps({
     GRAPHQL_API_KEY: process.env.GRAPHQL_API_KEY,
     AMPLITUDE_API_KEY: process.env.AMPLITUDE_API_KEY,
     SENTRY_DSN: process.env.SENTRY_DSN,
+    FILESTACK_API_KEY: process.env.FILESTACK_API_KEY,
 
     // Non duplicated environment variables (automatically resolved, must not be specified in the .env.build file)
     BUILD_TIME: date.toString(),

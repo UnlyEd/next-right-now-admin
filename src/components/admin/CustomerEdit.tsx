@@ -4,6 +4,7 @@ import { EditControllerProps } from '../../types/admin/EditControllerProps';
 import { EditProps } from '../../types/admin/EditProps';
 import { Customer } from '../../types/data/Customer';
 import CustomerEditToolbar from './CustomerEditToolbar';
+import AssetInput from './inputs/AssetInput';
 import ColorInput from './inputs/ColorInput';
 
 const CustomerEdit = (props: EditProps): JSX.Element => {
@@ -30,6 +31,7 @@ const CustomerEdit = (props: EditProps): JSX.Element => {
                 <TextField source="ref" label={'Reference (#)'} />
                 <TextInput source="labelEN" label={'Label (EN)'} />
                 <TextInput source="labelFR" label={'Label (FR)'} />
+                <AssetInput source={'theme.logo'} label={'Logo'} />
                 <ColorInput source="theme.primaryColor" label={'Color'} />
                 {/* XXX See https://github.com/marmelab/react-admin/issues/4512 */}
                 {/*<RichTextInput source="termsEN.html" label={'Terms (EN)'} />*/}
