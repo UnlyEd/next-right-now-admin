@@ -20,6 +20,7 @@ export const product = {
       images {
         id
         url
+        title
         height
         width
         fileName

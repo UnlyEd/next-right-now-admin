@@ -1,29 +1,40 @@
 import React from 'react';
-import { Datagrid, ImageField, List, TextField } from 'react-admin';
+import { ChipField, Datagrid, ImageField, List, ListController, TextField } from 'react-admin';
+import { ListControllerProps } from '../../types/admin/ListControllerProps';
 import { ListProps } from '../../types/admin/ListProps';
+import { REDIRECT } from '../../types/admin/Redirect';
 import ProductBulkActionButtons from './ProductBulkActionButtons';
 
 const ProductList = (props: ListProps): JSX.Element => {
-  console.log('ProductList.props', props);
+  console.debug('ProductList.props', props);
   return (
-    <List
-      {...props}
-      sort={{
-        field: 'titleEN',
-        order: 'DESC',
+    <ListController {...props}>
+      {(controllerProps: ListControllerProps) => {
+        console.debug('ProductList.controllerProps', controllerProps);
+        return (
+          <List
+            {...props}
+            {...controllerProps}
+            sort={{
+              field: 'titleEN',
+              order: 'DESC',
+            }}
+            bulkActionButtons={<ProductBulkActionButtons />}
+          >
+            <Datagrid rowClick={REDIRECT.SHOW}>
+              <ImageField source={'images[0].url'} title={'images[0]title'} label={'Image'} />
+              <TextField source="titleEN" label={'Title (EN)'} />
+              <TextField source="titleFR" label={'Title (FR)'} />
+              {/*<ArrayField source="images"><SingleFieldList><ChipField source="id" /></SingleFieldList></ArrayField>*/}
+              {/*<ReferenceArrayField source="imagesIds" reference="images"><TextField source="id" /></ReferenceArrayField>*/}
+              <TextField source="customer.label" label={'Customer'} />
+              <TextField source="price" />
+              <ChipField source="status" color={'primary'} />
+            </Datagrid>
+          </List>
+        );
       }}
-      bulkActionButtons={<ProductBulkActionButtons />}
-    >
-      <Datagrid rowClick="edit">
-        <ImageField source={'images[0].url'} title={'images[0]title'} label={'Image'} />
-        <TextField source="titleEN" label={'Title (EN)'} />
-        <TextField source="titleFR" label={'Title (FR)'} />
-        {/*<ArrayField source="images"><SingleFieldList><ChipField source="id" /></SingleFieldList></ArrayField>*/}
-        {/*<ReferenceArrayField source="imagesIds" reference="images"><TextField source="id" /></ReferenceArrayField>*/}
-        <TextField source="customer.label" label={'Customer'} />
-        <TextField source="price" />
-      </Datagrid>
-    </List>
+    </ListController>
   );
 };
 

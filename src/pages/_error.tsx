@@ -81,14 +81,14 @@ NRNError.getInitialProps = async (props: NextPageContext): Promise<ErrorProps> =
   return errorInitialProps;
 };
 
-export declare type NRNErrorProps = {
+export type NRNErrorProps = {
   err: Error;
   statusCode: number;
   isSSRReadyToRender: boolean;
   children?: React.ReactElement;
 }
 
-export declare type ErrorProps = {
+export type ErrorProps = {
   isSSRReadyToRender: boolean;
 } & NextErrorProps;
 

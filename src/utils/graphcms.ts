@@ -79,7 +79,6 @@ export const fieldAliasResolver = (
   acc: FieldNode[],
   introspectionResults: IntrospectionResult,
 ): string => {
-  console.debug('introspectionResults', introspectionResults);
   if (isLocalisedField(fieldName)) {
     return getLocalisedFieldAlias(fieldName);
   }
@@ -155,11 +154,11 @@ export const enhanceBuildQuery = (buildQuery) => (introspectionResults: Introspe
 ): BuiltQuery => {
   const { data } = params;
   const fragment = get(overriddenQueries, `${resourceName}.${fetchType}`);
-  // console.log('introspectionResults', introspectionResults);
-  console.log('fragment', fragment);
-  console.log('fetchType', fetchType);
-  console.log('resourceName', resourceName);
-  console.log('initial params', JSON.stringify(params, null, 2));
+  console.debug('introspectionResults', introspectionResults);
+  console.debug('fragment', fragment);
+  console.debug('fetchType', fetchType);
+  console.debug('resourceName', resourceName);
+  console.debug('initial params', JSON.stringify(params, null, 2));
 
   // Step 1 - Sanitize data so that the generated query/mutation is correct (structure/shape)
   switch (fetchType) {

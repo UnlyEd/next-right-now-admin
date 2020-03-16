@@ -10,7 +10,7 @@ import { UserSemiPersistentSession } from './UserSemiPersistentSession';
  * @see _app:getInitialProps - Returns it (consumed by the "render" function)
  * @see _app:render - Use it (as its "pageProps" property)
  */
-export declare type AppPageProps = {
+export type AppPageProps = {
   headers: PublicHeaders; // Headers made public to the client-side
   readonlyCookies: Cookies; // Cookies retrieved using https://www.npmjs.com/package/next-cookies - Aren't really readonly but don't provide any setter
   userSession: UserSemiPersistentSession;

@@ -1,12 +1,13 @@
 import React from 'react';
-
-type Sort = {
-  field: string; // Default: 'id'
-  order: string; // Default: 'ASC'
-}
+import { DisplayedFilters } from './DisplayedFilters';
+import { Filters } from './Filters';
+import { FilterValues } from './FilterValues';
+import { Match } from './Match';
+import { Options } from './Options';
+import { Sort } from './Sort';
 
 /**
- * React Admin List component props
+ * React Admin "List" component props
  *
  * Some of those props are manipulable, other aren't meant to
  * See https://github.com/marmelab/react-admin/blob/master/packages/ra-ui-materialui/src/list/List.js#L70
@@ -42,39 +43,30 @@ export type ListProps = {
     // Default: {}
     [key: string]: any;
   };
-  filters: React.ReactNode; // A React component used to display the filter form
-  filterValues: {
-    [key: string]: any;
-  };
+  filters: Filters; // A React component used to display the filter form
+  filterValues: FilterValues;
   hasCreate: boolean;
   hasEdit: boolean;
   hasList: boolean;
   hasShow: boolean;
   ids: string[];
   loading: boolean;
-  match: {
-    path: string;
-    url: string;
-    isExact: boolean;
-    params: object;
-  };
-  onSelect: Function;
-  onToggleItem: Function;
-  onUnselectItems: Function;
-  options: {
-    label: string;
-  };
+  match: Match;
+  onSelect: (newIds: string[]) => void;
+  onToggleItem: (id: string) => void;
+  onUnselectItems: () => void;
+  options: Options;
   page: number;
   pagination: React.ReactNode | boolean;
   perPage: number; // Default: 10
   refresh: Function;
   resource: string;
   selectedIds: string[];
-  setFilters: Function;
-  setPage: Function;
-  setPerPage: Function;
-  setSort: Function;
-  showFilter: Function;
+  setFilters: (filters, displayedFilters: DisplayedFilters) => any;
+  setPage: (newPage: any) => void;
+  setPerPage: (newPerPage: number) => void;
+  setSort: (newSort: Sort) => void;
+  showFilter: (filterName: string, defaultValue: any) => void;
   sort: Sort;
   title: string | React.ReactNode; // See https://github.com/marmelab/react-admin/blob/master/packages/ra-ui-materialui/src/layout/Title.js#L29
 };
