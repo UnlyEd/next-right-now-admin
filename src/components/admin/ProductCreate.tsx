@@ -1,5 +1,5 @@
 import React from 'react';
-import { Create, CreateController, NumberInput, SimpleForm, TextInput } from 'react-admin';
+import { Create, CreateController, NumberInput, ReferenceInput, SelectInput, SimpleForm, TextInput } from 'react-admin';
 import { CreateControllerProps } from '../../types/admin/CreateControllerProps';
 import { CreateProps } from '../../types/admin/CreateProps';
 import { Product } from '../../types/data/Product';
@@ -18,9 +18,9 @@ const ProductCreate = (props: CreateProps): JSX.Element => {
               <SimpleForm
                 redirect={'list'}
               >
-                {/*<ReferenceInput label="Customer" source="customer" reference="Customer">*/}
-                {/*  <SelectInput optionText="label" />*/}
-                {/*</ReferenceInput>*/}
+                <ReferenceInput label="Customer" source="customer.id" reference="Customer">
+                  <SelectInput optionText="label" />
+                </ReferenceInput>
                 <TextInput source="titleEN" label={'Title (EN)'} />
                 <TextInput source="titleFR" label={'Title (FR)'} />
                 <NumberInput source="price" defaultValue={5} />

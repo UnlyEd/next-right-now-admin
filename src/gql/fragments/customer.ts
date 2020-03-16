@@ -9,6 +9,7 @@ export const customer = {
       createdAt
       updatedAt
       ref
+      label # Used by ProductCreate to display a list of customers
       labelFR: label(locale: FR)
       labelEN: label(locale: EN)
       termsEN: terms(locale: EN) {
