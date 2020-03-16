@@ -1,9 +1,10 @@
 import React from 'react';
 import { Edit, EditController, ImageField, NumberInput, SimpleForm, TextInput } from 'react-admin';
 import { EditControllerProps } from '../../types/admin/EditControllerProps';
+import { EditProps } from '../../types/admin/EditProps';
 import { Product } from '../../types/data/Product';
 
-const ProductEdit = (props): JSX.Element => {
+const ProductEdit = (props: EditProps): JSX.Element => {
   console.debug('productEdit.props', props);
   return (
     <EditController {...props}>

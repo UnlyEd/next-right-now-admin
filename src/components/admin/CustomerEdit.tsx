@@ -1,11 +1,12 @@
 import React from 'react';
 import { Edit, EditController, SimpleForm, TextField, TextInput } from 'react-admin';
 import { EditControllerProps } from '../../types/admin/EditControllerProps';
+import { EditProps } from '../../types/admin/EditProps';
 import { Customer } from '../../types/data/Customer';
 import CustomerEditToolbar from './CustomerEditToolbar';
 import ColorInput from './inputs/ColorInput';
 
-const CustomerEdit = (props): JSX.Element => {
+const CustomerEdit = (props: EditProps): JSX.Element => {
   // Not SSR compatible
   // const RichTextInput = require('ra-input-rich-text');
 
