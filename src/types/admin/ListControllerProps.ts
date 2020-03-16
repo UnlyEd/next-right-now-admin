@@ -36,4 +36,5 @@ export type ListControllerProps = {
   setSort: (newSort: Sort) => void;
   showFilter: (filterName: string, defaultValue: any) => void;
   translate: (key: string, options: any) => string;
+  version: number;
 };
