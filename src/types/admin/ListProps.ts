@@ -3,6 +3,7 @@ import { DisplayedFilters } from './DisplayedFilters';
 import { Filters } from './Filters';
 import { FilterValues } from './FilterValues';
 import { Match } from './Match';
+import { Options } from './Options';
 import { Sort } from './Sort';
 
 /**
@@ -54,9 +55,7 @@ export type ListProps = {
   onSelect: (newIds: string[]) => void;
   onToggleItem: (id: string) => void;
   onUnselectItems: () => void;
-  options: {
-    label: string;
-  };
+  options: Options;
   page: number;
   pagination: React.ReactNode | boolean;
   perPage: number; // Default: 10

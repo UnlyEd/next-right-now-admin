@@ -3,19 +3,17 @@ import { Match } from './Match';
 import { Options } from './Options';
 
 /**
- * React Admin "Show" component props
+ * React Admin "Create" component props
  */
-export type ShowProps = {
+export type CreateProps = {
   basePath: string;
   hasCreate: boolean;
   hasEdit: boolean;
   hasList: boolean;
   hasShow: boolean;
-  id: string;
   location: Location;
   match: Match;
   options: Options;
   permissions: any[] | undefined;
-  refresh: Function;
   resource: string;
 };

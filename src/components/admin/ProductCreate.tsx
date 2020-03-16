@@ -1,21 +1,37 @@
 import React from 'react';
-import { ReferenceInput, SelectInput, Create, NumberInput, SimpleForm, TextInput } from 'react-admin';
+import { Create, CreateController, NumberInput, SimpleForm, TextInput } from 'react-admin';
+import { CreateControllerProps } from '../../types/admin/CreateControllerProps';
+import { CreateProps } from '../../types/admin/CreateProps';
+import { Product } from '../../types/data/Product';
 
-const ProductCreate = (props): JSX.Element => {
+const ProductCreate = (props: CreateProps): JSX.Element => {
   console.debug('productCreate.props', props);
   return (
-    <Create {...props}>
-      <SimpleForm
-        redirect={'list'}
-      >
-        {/*<ReferenceInput label="Customer" source="customer" reference="Customer">*/}
-        {/*  <SelectInput optionText="label" />*/}
-        {/*</ReferenceInput>*/}
-        <TextInput source="titleEN" label={"Title (EN)"} />
-        <TextInput source="titleFR" label={"Title (FR)"} />
-        <NumberInput source="price" defaultValue={5} />
-      </SimpleForm>
-    </Create>
+    <CreateController {...props}>
+      {(controllerProps: CreateControllerProps) => {
+        const { record, loading }: CreateControllerProps & { record: Product | {} } = controllerProps;
+
+        if (!loading) {
+          console.debug('productCreate.controllerProps:', controllerProps, 'record:', record);
+          return (
+            <Create {...props}>
+              <SimpleForm
+                redirect={'list'}
+              >
+                {/*<ReferenceInput label="Customer" source="customer" reference="Customer">*/}
+                {/*  <SelectInput optionText="label" />*/}
+                {/*</ReferenceInput>*/}
+                <TextInput source="titleEN" label={'Title (EN)'} />
+                <TextInput source="titleFR" label={'Title (FR)'} />
+                <NumberInput source="price" defaultValue={5} />
+              </SimpleForm>
+            </Create>
+          );
+        } else {
+          return null;
+        }
+      }}
+    </CreateController>
   );
 };
 
