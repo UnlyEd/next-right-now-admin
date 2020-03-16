@@ -1,4 +1,4 @@
-export declare type Sort = {
+export type Sort = {
   field: string; // Default: 'id'
   order: string; // Default: 'ASC'
 }

@@ -13,7 +13,7 @@ import { AppPageProps } from './AppPageProps';
  * @see _app:getInitialProps - Returns it (only pageProps)
  * @see _app:render - Use it (has access to all props)
  */
-export declare type AppRenderProps = {
+export type AppRenderProps = {
   pageProps: AppPageProps;
   err?: Error; // Only defined if there was an error
 

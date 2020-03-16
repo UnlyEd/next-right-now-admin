@@ -4,4 +4,4 @@ export enum REDIRECT {
   SHOW = 'show',
 }
 
-export declare type Redirect = REDIRECT;
+export type Redirect = REDIRECT;

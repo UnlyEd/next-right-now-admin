@@ -7,7 +7,7 @@ import { AppPageProps } from './AppPageProps';
  *
  * The layout properties (LayoutProps) are enhanced by the Layout
  */
-export declare type PageProps = {
+export type PageProps = {
   router: NextRouter;
   // i18nextInstance: i18n;
   err?: Error; // Only defined if there was an error

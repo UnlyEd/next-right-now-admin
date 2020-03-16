@@ -11,7 +11,7 @@ const ProductEdit = (props): JSX.Element => {
         const { record, loading }: EditControllerProps & { record: Product } = controllerProps;
 
         if (!loading) {
-          console.debug('productEdit.controllerProps', controllerProps, record);
+          console.debug('productEdit.controllerProps:', controllerProps, 'record:', record);
           return (
             <Edit {...props}>
               {/* XXX Using custom toolbar breaks updates because props get injected to the DOM instead of being passed down to children, somehow*/}

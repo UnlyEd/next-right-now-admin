@@ -2,6 +2,7 @@ import React from 'react';
 import { DisplayedFilters } from './DisplayedFilters';
 import { Filters } from './Filters';
 import { FilterValues } from './FilterValues';
+import { Match } from './Match';
 import { Sort } from './Sort';
 
 /**
@@ -49,12 +50,7 @@ export type ListProps = {
   hasShow: boolean;
   ids: string[];
   loading: boolean;
-  match: {
-    path: string;
-    url: string;
-    isExact: boolean;
-    params: object;
-  };
+  match: Match;
   onSelect: (newIds: string[]) => void;
   onToggleItem: (id: string) => void;
   onUnselectItems: () => void;

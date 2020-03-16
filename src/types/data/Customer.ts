@@ -1,7 +1,7 @@
 import { GraphCMSSystemFields } from './GraphCMSSystemFields';
 import { Theme } from './Theme';
 
-export declare type Customer = {
+export type Customer = {
   id?: string;
   ref?: string;
   labelFR?: string;

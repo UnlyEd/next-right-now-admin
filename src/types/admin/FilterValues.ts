@@ -1,3 +1,3 @@
-export declare type FilterValues = {
+export type FilterValues = {
   [key: string]: any;
 }

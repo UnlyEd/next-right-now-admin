@@ -16,7 +16,7 @@ const CustomerEdit = (props): JSX.Element => {
         const { record, loading }: EditControllerProps & { record: Customer } = controllerProps;
 
         if (!loading) {
-          console.debug('customerEdit.controllerProps', controllerProps, record);
+          console.debug('customerEdit.controllerProps:', controllerProps, 'record:', record);
           return (
             <Edit
               {...props}

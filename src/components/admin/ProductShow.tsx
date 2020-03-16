@@ -1,15 +1,18 @@
 import React from 'react';
-import { ImageField, NumberField, Show, ShowController, TextField, SimpleShowLayout } from 'react-admin';
+import { ImageField, NumberField, Show, ShowController, SimpleShowLayout, TextField } from 'react-admin';
+import { ShowControllerProps } from '../../types/admin/ShowControllerProps';
+import { ShowProps } from '../../types/admin/ShowProps';
+import { Product } from '../../types/data/Product';
 
-const ProductShow = (props): JSX.Element => {
+const ProductShow = (props: ShowProps): JSX.Element => {
   console.debug('productShow.props', props);
   return (
     <ShowController {...props}>
-      {(controllerProps) => {
-        const { record, loading } = controllerProps;
+      {(controllerProps: ShowControllerProps) => {
+        const { record, loading }: ShowControllerProps & { record: Product } = controllerProps;
 
         if (!loading) {
-          console.debug('productShow.controllerProps', controllerProps, record);
+          console.debug('productShow.controllerProps:', controllerProps, 'record:', record);
           return (
             <Show {...props}>
               <SimpleShowLayout>

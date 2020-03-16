@@ -2,9 +2,9 @@ import { Record } from '../../utils/record';
 import { Redirect } from './Redirect';
 
 /**
- * React Admin "EditController" component props
+ * React Admin "ShowController" component props
  */
-export type EditControllerProps = {
+export type ShowControllerProps = {
   basePath: string;
   defaultTitle: string;
   loaded: boolean;
@@ -12,8 +12,6 @@ export type EditControllerProps = {
   record: Record;
   redirect: Redirect;
   resource: string;
-  save: (data: any, redirectTo: any, _a: any) => void;
-  saving: boolean;
   translate: (key: string, options: any) => string;
   version: number;
 };
