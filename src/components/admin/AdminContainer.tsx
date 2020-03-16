@@ -7,6 +7,7 @@ import CustomerList from './CustomerList';
 import ProductCreate from './ProductCreate';
 import ProductEdit from './ProductEdit';
 import ProductList from './ProductList';
+import ProductShow from './ProductShow';
 
 const AdminContainer = (props: Props): JSX.Element => {
   const { dataProvider } = props;
@@ -17,7 +18,7 @@ const AdminContainer = (props: Props): JSX.Element => {
       dataProvider={dataProvider}
     >
       <Resource name="Customer" list={CustomerList} edit={CustomerEdit} />
-      <Resource name="Product" list={ProductList} edit={ProductEdit} create={ProductCreate} />
+      <Resource name="Product" list={ProductList} edit={ProductEdit} create={ProductCreate} show={ProductShow} />
       <Resource name="Theme" />
     </Admin>
   );

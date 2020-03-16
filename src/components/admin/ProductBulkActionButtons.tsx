@@ -3,7 +3,7 @@ import { BulkDeleteButton } from 'react-admin';
 
 const ProductBulkActionButtons = (props) => {
   const { record } = props;
-  console.log('ProductBulkActionButtons.props', props);
+  console.debug('ProductBulkActionButtons.props', props, record);
   // XXX Do not allow to delete published content
   return (
     <>

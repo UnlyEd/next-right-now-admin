@@ -2,6 +2,7 @@ import React from 'react';
 import { ChipField, Datagrid, ImageField, List, ListController, TextField } from 'react-admin';
 import { ListControllerProps } from '../../types/admin/ListControllerProps';
 import { ListProps } from '../../types/admin/ListProps';
+import { REDIRECT } from '../../types/admin/Redirect';
 import ProductBulkActionButtons from './ProductBulkActionButtons';
 
 const ProductList = (props: ListProps): JSX.Element => {
@@ -20,7 +21,7 @@ const ProductList = (props: ListProps): JSX.Element => {
             }}
             bulkActionButtons={<ProductBulkActionButtons />}
           >
-            <Datagrid rowClick="edit">
+            <Datagrid rowClick={REDIRECT.SHOW}>
               <ImageField source={'images[0].url'} title={'images[0]title'} label={'Image'} />
               <TextField source="titleEN" label={'Title (EN)'} />
               <TextField source="titleFR" label={'Title (FR)'} />

@@ -2,7 +2,7 @@ import React from 'react';
 import { ReferenceInput, SelectInput, Create, NumberInput, SimpleForm, TextInput } from 'react-admin';
 
 const ProductCreate = (props): JSX.Element => {
-  console.log('productCreate props', props);
+  console.debug('productCreate.props', props);
   return (
     <Create {...props}>
       <SimpleForm
