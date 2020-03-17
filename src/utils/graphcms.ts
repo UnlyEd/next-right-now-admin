@@ -148,9 +148,9 @@ export const sanitizeMutationCreateData = (data: Record): object => {
  * @param buildQuery
  */
 export const enhanceBuildQuery = (buildQuery) => (introspectionResults: IntrospectionResult) => (
-  fetchType,
-  resourceName,
-  params,
+  fetchType: string,
+  resourceName: string,
+  params: { [key: string]: any },
 ): BuiltQuery => {
   const { data } = params;
   const fragment = get(overriddenQueries, `${resourceName}.${fetchType}`);

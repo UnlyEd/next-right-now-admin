@@ -36,17 +36,22 @@ const AssetInput = (props: Props) => {
 
           if (fileUploaded) {
             console.log('dataProvider', dataProvider);
-            const res: any = await dataProvider.create('Asset', {
-              data: {
-                handle: fileUploaded.handle,
-                fileName: fileUploaded.filename,
-                title: fileUploaded.filename,
-                size: fileUploaded.size,
-                mimeType: fileUploaded.mimeType || 'image/png', // TODO
-                status: 'PUBLISHED',
-              },
-            });
-            console.debug('res', res);
+            try {
+              const res: any = await dataProvider.create('Asset', {
+                data: {
+                  handle: fileUploaded.handle,
+                  fileName: fileUploaded.filename,
+                  title: fileUploaded.filename,
+                  size: fileUploaded.size,
+                  mimeType: fileUploaded.mimeType || 'image/png', // TODO resolve proper mimeType
+                  status: 'PUBLISHED',
+                },
+              });
+              console.debug('res', res);
+
+            } catch (e) {
+              // Do nothing
+            }
           }
         }}
       />
