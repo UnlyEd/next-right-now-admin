@@ -152,41 +152,53 @@ export const enhanceBuildQuery = (buildQuery) => (introspectionResults: Introspe
   resourceName: string,
   params: { [key: string]: any },
 ): BuiltQuery => {
-  const { data } = params;
-  const fragment = get(overriddenQueries, `${resourceName}.${fetchType}`);
-  console.debug('introspectionResults', introspectionResults);
-  console.debug('fragment', fragment);
-  console.debug('fetchType', fetchType);
-  console.debug('resourceName', resourceName);
-  console.debug('initial params', JSON.stringify(params, null, 2));
+  try {
+    const { data } = params;
+    const fragment = get(overriddenQueries, `${resourceName}.${fetchType}`);
+    console.debug('introspectionResults', introspectionResults);
+    console.debug('fragment', fragment);
+    console.debug('fetchType', fetchType);
+    console.debug('resourceName', resourceName);
+    console.debug('initial params', JSON.stringify(params, null, 2));
 
-  // Step 1 - Sanitize data so that the generated query/mutation is correct (structure/shape)
-  switch (fetchType) {
-    case UPDATE:
-      const { previousData } = params;
+    // Step 1 - Sanitize data so that the generated query/mutation is correct (structure/shape)
+    switch (fetchType) {
+      case UPDATE:
+        const { previousData } = params;
 
-      // Override data by removing all non-updated and blacklisted fields
-      params.data = sanitizeMutationUpdateData(data, previousData);
-      break;
-    case CREATE:
+        // Override data by removing all non-updated and blacklisted fields
+        params.data = sanitizeMutationUpdateData(data, previousData);
+        break;
+      case CREATE:
 
-      params.data = sanitizeMutationCreateData(data);
+        params.data = sanitizeMutationCreateData(data);
 
-      break;
-    default:
-      break;
+        break;
+      default:
+        break;
+    }
+
+    const builtQuery: BuiltQuery = buildQuery(introspectionResults, fieldAliasResolver)(
+      fetchType,
+      resourceName,
+      params,
+      fragment,
+    );
+    const { query, variables } = builtQuery;
+
+    console.log('builtQuery', builtQuery);
+    console.debug(print(query), '- Variables:', variables, ' using params:', params);
+
+    return builtQuery;
+  } catch (e) {
+    // XXX Will fail if "params" is undefined, which shouldn't happen
+    //  It does happen when using dataProvider.create - See https://github.com/marmelab/react-admin/issues/4546
+    //  The goal, by catching it, is to still display the error in the console, but avoid a fatal error on the UI
+    console.error(e);
+    return {
+      query: null,
+      variables: null,
+      parseResponse: null,
+    }
   }
-
-  const builtQuery: BuiltQuery = buildQuery(introspectionResults, fieldAliasResolver)(
-    fetchType,
-    resourceName,
-    params,
-    fragment,
-  );
-  const { query, variables } = builtQuery;
-
-  console.log('builtQuery', builtQuery);
-  console.debug(print(query), '- Variables:', variables, ' using params:', params);
-
-  return builtQuery;
 };
