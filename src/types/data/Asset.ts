@@ -9,4 +9,5 @@ export type Asset = {
   size?: number;
   mimeType?: string;
   url?: string; // Field added at runtime by GraphCMS asset's provider - See https://www.filestack.com/
+  title?: string;
 } & GraphCMSSystemFields;
