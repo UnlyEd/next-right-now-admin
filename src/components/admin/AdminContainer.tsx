@@ -10,6 +10,7 @@ import ProductList from './ProductList';
 import ProductShow from './ProductShow';
 
 const AdminContainer = (props: Props): JSX.Element => {
+  console.debug('AdminContainer.props', props);
   const { dataProvider } = props;
 
   return (

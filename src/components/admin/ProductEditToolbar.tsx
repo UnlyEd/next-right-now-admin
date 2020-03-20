@@ -2,8 +2,8 @@ import React from 'react';
 import { DeleteButton, SaveButton, Toolbar } from 'react-admin';
 
 const ProductEditToolbar = (props) => {
+  console.debug('ProductEditToolbar.props', props);
   const { record } = props;
-  console.log('ProductEditToolbar.props', props);
   return (
     <Toolbar {...props} style={{
       flex: 1,

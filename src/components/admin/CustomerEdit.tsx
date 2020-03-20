@@ -8,10 +8,10 @@ import AssetInput from './inputs/AssetInput';
 import ColorInput from './inputs/ColorInput';
 
 const CustomerEdit = (props: EditProps): JSX.Element => {
+  console.debug('CustomerEdit.props', props);
   // Not SSR compatible
   // const RichTextInput = require('ra-input-rich-text');
 
-  console.debug('customerEdit.props', props);
   return (
     <EditController {...props}>
       {(controllerProps: EditControllerProps) => {

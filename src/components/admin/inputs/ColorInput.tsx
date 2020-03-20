@@ -10,6 +10,7 @@ import { Record } from '../../../utils/record';
 import ColorField from '../fields/ColorField';
 
 const ColorInput = (props: Props) => {
+  console.debug('ColorInput.props', props);
   const {
     label,
     source,
@@ -18,7 +19,6 @@ const ColorInput = (props: Props) => {
     record,
   } = props;
   const Picker = ReactColor[`${picker}Picker`];
-  console.debug('ColorInput.props', props);
 
   const {
     input: { name, onChange },

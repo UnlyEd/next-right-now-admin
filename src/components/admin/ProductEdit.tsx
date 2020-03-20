@@ -5,7 +5,7 @@ import { EditProps } from '../../types/admin/EditProps';
 import { Product } from '../../types/data/Product';
 
 const ProductEdit = (props: EditProps): JSX.Element => {
-  console.debug('productEdit.props', props);
+  console.debug('ProductEdit.props', props);
   return (
     <EditController {...props}>
       {(controllerProps: EditControllerProps) => {

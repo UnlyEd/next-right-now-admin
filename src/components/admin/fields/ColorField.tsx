@@ -3,6 +3,7 @@ import React from 'react';
 import { Record } from '../../../utils/record';
 
 const ColorField = (props: Props) => {
+  console.debug('ColorField.props', props);
   const { record = {}, source, displayValue = true } = props;
   const value: string = get(record, source);
 
