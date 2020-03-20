@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { css, jsx } from '@emotion/core';
 import get from 'lodash.get';
-import React from 'react';
+import React, { useState } from 'react';
 import { useDataProvider, useInput } from 'react-admin';
 
 import { Asset } from '../../../types/data/Asset';
@@ -13,25 +13,32 @@ import { Record } from '../../../utils/record';
  * GraphCMS Asset input
  */
 const AssetInput = (props: Props) => {
+  console.debug('AssetInput.props', props);
   const {
-    assetSource,
+    source,
     className,
     label,
     record,
   } = props;
+  const value: Asset = get(record, source);
+
+  if (!get(value, 'id') || !get(value, 'url')) {
+    throw new Error(`[AssetInput] The "source" prop must be a string that points towards the asset object but no "id" and/or "url" field could be found. (ex: use "theme.logo", but NOT "theme.logo.id")`);
+  }
+
   const FileStackAssetPicker = require('filestack-react').default;
-  console.debug('AssetInput.props', props);
   const dataProvider = useDataProvider();
-  const assetUrl = get(record, `${assetSource}.url`);
-  const assetTitle = get(record, `${assetSource}.title`);
+  const assetUrl = get(record, `${source}.url`);
+  const assetTitle = get(record, `${source}.title`);
   const {
     input: { name, onChange },
     meta: { touched, error },
     isRequired,
   } = useInput({
     ...props,
-    source: `${assetSource}.id`,
+    source: `${source}.id`,
   });
+  const [newUploadedAsset, setNewUploadedAsset]: [Asset, Function] = useState(null); // Displayed instead of the record asset once uploaded
 
   return (
     <div
@@ -46,12 +53,23 @@ const AssetInput = (props: Props) => {
       `}
     >
       {label}<br />
-      <img
-        src={assetUrl}
-        title={assetTitle}
-        alt={assetTitle}
-        width={'100%'}
-      />
+      {
+        newUploadedAsset ? (
+          <img
+            src={newUploadedAsset.url}
+            title={newUploadedAsset.title}
+            alt={newUploadedAsset.title}
+            width={'100%'}
+          />
+        ) : (
+          <img
+            src={assetUrl}
+            title={assetTitle}
+            alt={assetTitle}
+            width={'100%'}
+          />
+        )
+      }
 
       <div className={'assetPicker-container'}>
         <FileStackAssetPicker
@@ -82,13 +100,14 @@ const AssetInput = (props: Props) => {
               console.debug('res', res);
               const newAssetTmp: Asset = res.data;
               const newAsset: Asset = {
-                ...get(record, assetSource),
+                ...get(record, source),
                 ...newAssetTmp,
               };
-              // const newRecord: Asset = deepmerge(record, arrayToNestedObject(assetSource.split('.'), newAsset));
+              // const newRecord: Asset = deepmerge(record, arrayToNestedObject(source.split('.'), newAsset));
               console.debug('newAsset', newAsset);
               // console.debug('newRecord', record);
               onChange(newAsset.id);
+              setNewUploadedAsset(newAsset);
             }
           }}
         />
@@ -98,7 +117,7 @@ const AssetInput = (props: Props) => {
 };
 
 type Props = {
-  assetSource: string;
+  source: string;
   record?: Record;
   label?: string;
   className?: string;
