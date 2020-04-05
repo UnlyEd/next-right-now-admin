@@ -2,9 +2,26 @@
 [![Maintainability](https://api.codeclimate.com/v1/badges/8cb455deab217c839afc/maintainability)](https://codeclimate.com/github/UnlyEd/next-right-now-admin/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/8cb455deab217c839afc/test_coverage)](https://codeclimate.com/github/UnlyEd/next-right-now-admin/test_coverage)
 
-> # Status: **DRAFT/WIP** - Do not use in production, subject to massive changes anytime
+> # Status: **STABLE/POC/NON-MAINTAINED**
 >
-> ### Want to contribute?
+> ### Our motivations
+>
+>   We wanted to build our own admin backoffice to manage our content. But the task has revealed itself much more complicated than what I thought it'd be.
+>
+>   - React-admin is much harder to use than what I hoped for:
+>       - It lacks TS support and extensive documentation, cost of learning is very high
+>       - Official examples are often outdated
+>       - Finding community help wasn't as easy as expected, despite a 12K+ stars counter
+>       - In short, the cost of "getting started" is much, much higher than expected and broke our confidence in our ability to deliver a product of quality on time
+>   - The "react-admin <> GraphQL" data provider [I had found](https://github.com/Weakky/ra-data-opencrud) when building my initial POC isn't maintained and not advanced enough for our use cases
+>   - We had to spend quite some time finding a proper alternative ([fork](https://github.com/marcantoine/ra-data-graphql-prisma)), but despite being used in production it was still not advanced enough and was lacking a lot of good practices (huge npm package, outdated TS, broken tests, etc.)
+>   - We [built our own data provider](https://github.com/UnlyEd/ra-data-graphql-prisma) and spent quite some time on it
+>   - We learned that the GraphCMS API we're using would change it's API in a breaking way, which would force us to update this package again in the future
+>   - At this point we believe there was too many issues with the whole things, and too many chances that something would go wrong and would stop us from growing (ROI)
+>   - Thus, we decided to find another alternative and released this package under a stable and documented version, for other people to have a better experience than we did.
+>       - For the record, we've found other potential alternatives, such as [Directus](https://directus.io/) and [Frappe](https://frappe.io/docs) which I recommend to take a look at.
+>
+> ### ~~Want to contribute?~~ Kept for reference, **but do not expect any involvement from us**
 >
 > 1. Check our [roadmap](https://github.com/UnlyEd/next-right-now-admin/projects) to get an overview of what we want to build with NRN-Admin
 > 1. Check what's left to do for [v1 release](https://github.com/UnlyEd/next-right-now-admin/projects/1)
@@ -12,6 +29,7 @@
 > 1. [Check open issues for v1](https://github.com/UnlyEd/next-right-now-admin/milestone/1) and let us know what you'd like to work on.
 >   Make sure you understand the specs properly before starting, don't hesitate to ask for clarifications if unclear.
 >
+
 
 Next Right Now Admin
 ===
