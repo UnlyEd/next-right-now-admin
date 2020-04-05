@@ -5,7 +5,7 @@ import { CreateProps } from '../../types/admin/CreateProps';
 import { Product } from '../../types/data/Product';
 
 const ProductCreate = (props: CreateProps): JSX.Element => {
-  console.debug('productCreate.props', props);
+  console.debug('ProductCreate.props', props);
   return (
     <CreateController {...props}>
       {(controllerProps: CreateControllerProps) => {

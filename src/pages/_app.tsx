@@ -147,7 +147,7 @@ class NRNApp extends NextApp {
       router,
     };
 
-    console.log('enhancedPageProps', enhancedPageProps);
+    console.debug('enhancedPageProps', enhancedPageProps);
 
     // XXX For an unknown reason, I noticed 2 render() calls. (each render call starts a new graphql request, and it makes debugging harder)
     //  The first one doesn't contain any data from the server (no data, almost nothing) and therefore result in errors along the react sub tree

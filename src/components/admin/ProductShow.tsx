@@ -5,7 +5,7 @@ import { ShowProps } from '../../types/admin/ShowProps';
 import { Product } from '../../types/data/Product';
 
 const ProductShow = (props: ShowProps): JSX.Element => {
-  console.debug('productShow.props', props);
+  console.debug('ProductShow.props', props);
   return (
     <ShowController {...props}>
       {(controllerProps: ShowControllerProps) => {

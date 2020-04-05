@@ -3,9 +3,10 @@ import { Edit, EditController, ImageField, NumberInput, SimpleForm, TextInput } 
 import { EditControllerProps } from '../../types/admin/EditControllerProps';
 import { EditProps } from '../../types/admin/EditProps';
 import { Product } from '../../types/data/Product';
+// import ProductEditToolbar from './ProductEditToolbar';
 
 const ProductEdit = (props: EditProps): JSX.Element => {
-  console.debug('productEdit.props', props);
+  console.debug('ProductEdit.props', props);
   return (
     <EditController {...props}>
       {(controllerProps: EditControllerProps) => {
@@ -14,10 +15,13 @@ const ProductEdit = (props: EditProps): JSX.Element => {
         if (!loading) {
           console.debug('productEdit.controllerProps:', controllerProps, 'record:', record);
           return (
-            <Edit {...props}>
-              {/* XXX Using custom toolbar breaks updates because props get injected to the DOM instead of being passed down to children, somehow*/}
-              {/*<SimpleForm toolbar={<ProductEditToolbar />}>*/}
+            <Edit
+              undoable={false}
+              {...props}
+            >
               <SimpleForm
+                // XXX Using custom toolbar breaks updates/deletes because props get injected to the DOM instead of being passed down to children, somehow
+                // toolbar={<ProductEditToolbar />}
                 redirect={false}
               >
                 <ImageField source="images" src="url" title="Image" />

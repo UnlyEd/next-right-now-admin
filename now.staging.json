@@ -9,7 +9,8 @@
       "GRAPHQL_API_ENDPOINT": "https://api-euwest.graphcms.com/v1/ck73ixhlv09yt01dv2ga1bkbp/master",
       "GRAPHQL_API_KEY": "@nrn-admin-graphql-api-key",
       "AMPLITUDE_API_KEY": "@nrn-admin-amplitude-api-key-staging",
-      "SENTRY_DSN": "@nrn-admin-sentry-dsn"
+      "SENTRY_DSN": "@nrn-admin-sentry-dsn",
+      "FILESTACK_API_KEY": "@nrn-admin-filestack-api-key"
     }
   },
   "routes": [
