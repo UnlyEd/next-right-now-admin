@@ -2129,10 +2129,10 @@
   resolved "https://registry.yarnpkg.com/@unly/iso3166-1/-/iso3166-1-1.0.2.tgz#ef1504b4aa6e618b800c14a77261a6c5e9449fa0"
   integrity sha512-aL/7cmcfjpwOaKFr9XHcWP/Z7lQjKLm5NMcjncT96aeSJxfblmPLnH/8lnX0GrWWFA2/CseCxnA73u5eiZcClA==
 
-"@unly/ra-data-graphql-prisma@1.0.0-beta.7":
-  version "1.0.0-beta.7"
-  resolved "https://registry.yarnpkg.com/@unly/ra-data-graphql-prisma/-/ra-data-graphql-prisma-1.0.0-beta.7.tgz#953925fc63366bc53d83949f942df1d82cf82b4f"
-  integrity sha512-GgPc7qwMLMuVX698MPJtDgD46jW2RA5uM2dl6lzTgnDkGvY2dqVs5yZkuuhVCl12QKzm4WEeYpLksdAbM3RB/Q==
+"@unly/ra-data-graphql-prisma@1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@unly/ra-data-graphql-prisma/-/ra-data-graphql-prisma-1.0.0.tgz#9088b18bf0034ea671a1e81abb800b0286185d0b"
+  integrity sha512-E0JnDgVvOvRO3w4ZkSUXAkVFcd7+iYePLrp2CtBlBqt08EWBV55q6V9vygdoHbQ0gEFjEHPhQtTcDzFcYtaeVw==
   dependencies:
     graphql-tag "2.10.3"
     lodash "4.17.15"
